@@ -116,8 +116,31 @@ directionalLight.position.y = 2;
 directionalLight.position.z = 1;
 scene.add(directionalLight);
 
+// Window size
+const windowSizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+}
+
+// On window resize
+window.addEventListener('resize', () => {
+    
+    // Update inner sizes
+    windowSizes.width = window.innerWidth;
+    windowSizes.height = window.innerHeight;
+
+    // Update camera
+    camera.aspect = windowSizes.width / windowSizes.height;
+    camera.updateProjectionMatrix();
+
+    // Update renderer
+    renderer.setSize(windowSizes.width, windowSizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+
 // Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+const camera = new THREE.PerspectiveCamera(75, windowSizes.width / windowSizes.height, 1, 1000);
 camera.position.x = 3;
 camera.position.y = 2;
 camera.position.z = 5;
@@ -131,7 +154,8 @@ controls.enableDamping = true;
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(windowSizes.width, windowSizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 function animate() {
     // Render
