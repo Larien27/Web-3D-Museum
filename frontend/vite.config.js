@@ -1,6 +1,6 @@
 export default {
-    root: 'src/',
-    publicDir: '../static/',
+    root: 'src',
+    publicDir: '../static',
     server:
     {
         host: true,
