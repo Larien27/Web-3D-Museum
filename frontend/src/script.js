@@ -14,6 +14,32 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 /**
+ * Textures
+ */
+const textureLoader = new THREE.TextureLoader();
+
+// Floor
+const floorColorTexture = textureLoader.load('./wood_floor_1k/wood_floor_diff_1k.jpg');
+floorColorTexture.colorSpace = THREE.SRGBColorSpace;
+const floorARMTexture = textureLoader.load('./wood_floor_1k/wood_floor_arm_1k.jpg');
+const floorDisplacementTexture = textureLoader.load('./wood_floor_1k/wood_floor_disp_1k.jpg');
+const floorNormalTexture = textureLoader.load('./wood_floor_1k/wood_floor_nor_gl_1k.jpg');
+
+floorColorTexture.repeat.set(5, 10);
+floorARMTexture.repeat.set(5, 10);
+floorDisplacementTexture.repeat.set(5, 10);
+floorNormalTexture.repeat.set(5, 10);
+
+floorColorTexture.wrapS = THREE.RepeatWrapping;
+floorARMTexture.wrapS = THREE.RepeatWrapping;
+floorDisplacementTexture.wrapS = THREE.RepeatWrapping;
+floorNormalTexture.wrapS = THREE.RepeatWrapping;
+floorColorTexture.wrapT = THREE.RepeatWrapping;
+floorARMTexture.wrapT = THREE.RepeatWrapping;
+floorDisplacementTexture.wrapT = THREE.RepeatWrapping;
+floorNormalTexture.wrapT = THREE.RepeatWrapping;
+
+/**
  * Museum
  */
 const roomDimensions = {
@@ -25,7 +51,15 @@ const roomDimensions = {
 // Floor
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(roomDimensions.width, roomDimensions.length, 1),
-    new THREE.MeshStandardMaterial()
+    new THREE.MeshStandardMaterial({
+        map: floorColorTexture,
+        aoMap: floorARMTexture,
+        roughnessMap: floorARMTexture,
+        displacementMap: floorDisplacementTexture,
+        displacementScale: 0.3,
+        displacementBias: -0.1,
+        normalMap: floorNormalTexture
+    })
 );
 floor.rotation.x = - Math.PI / 2;
 scene.add(floor);
@@ -76,7 +110,7 @@ cubeDebug
 const ambientLight = new THREE.AmbientLight('#ffffff', 1);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight('#0000ff', 2);
+const directionalLight = new THREE.DirectionalLight('#ffffff', 2);
 directionalLight.position.x = 3;
 directionalLight.position.y = 2;
 directionalLight.position.z = 1;
