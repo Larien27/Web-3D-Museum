@@ -16,7 +16,7 @@ const scene = new THREE.Scene();
 // Object
 const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
+    new THREE.MeshStandardMaterial()
 );
 
 scene.add(cube);
@@ -28,6 +28,15 @@ cubeDebug
 cubeDebug
     .add(cube.material, 'wireframe');
 
+// Lights
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.8);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight('#0000ff', 5);
+directionalLight.position.x = 3;
+directionalLight.position.y = 2;
+directionalLight.position.z = 1;
+scene.add(directionalLight);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
