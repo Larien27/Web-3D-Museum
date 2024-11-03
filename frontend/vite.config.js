@@ -1,3 +1,5 @@
+import react from '@vitejs/plugin-react';
+
 export default {
     root: 'src',
     publicDir: '../static',
@@ -11,5 +13,6 @@ export default {
         outDir: '../dist',
         emptyOutDir: true,
         sourcemap: true
-    }
+    },
+    plugins: [react()]
 }
