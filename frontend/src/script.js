@@ -16,80 +16,80 @@ const scene = new THREE.Scene();
 /**
  * Textures
  */
-const textureLoader = new THREE.TextureLoader();
+// const textureLoader = new THREE.TextureLoader();
 
 // Floor
-const floorColorTexture = textureLoader.load('./wood_floor_1k/wood_floor_diff_1k.jpg');
-floorColorTexture.colorSpace = THREE.SRGBColorSpace;
-const floorARMTexture = textureLoader.load('./wood_floor_1k/wood_floor_arm_1k.jpg');
-const floorDisplacementTexture = textureLoader.load('./wood_floor_1k/wood_floor_disp_1k.jpg');
-const floorNormalTexture = textureLoader.load('./wood_floor_1k/wood_floor_nor_gl_1k.jpg');
+// const floorColorTexture = textureLoader.load('./wood_floor_1k/wood_floor_diff_1k.jpg');
+// floorColorTexture.colorSpace = THREE.SRGBColorSpace;
+// const floorARMTexture = textureLoader.load('./wood_floor_1k/wood_floor_arm_1k.jpg');
+// const floorDisplacementTexture = textureLoader.load('./wood_floor_1k/wood_floor_disp_1k.jpg');
+// const floorNormalTexture = textureLoader.load('./wood_floor_1k/wood_floor_nor_gl_1k.jpg');
 
-floorColorTexture.repeat.set(5, 10);
-floorARMTexture.repeat.set(5, 10);
-floorDisplacementTexture.repeat.set(5, 10);
-floorNormalTexture.repeat.set(5, 10);
+// floorColorTexture.repeat.set(5, 10);
+// floorARMTexture.repeat.set(5, 10);
+// floorDisplacementTexture.repeat.set(5, 10);
+// floorNormalTexture.repeat.set(5, 10);
 
-floorColorTexture.wrapS = THREE.RepeatWrapping;
-floorARMTexture.wrapS = THREE.RepeatWrapping;
-floorDisplacementTexture.wrapS = THREE.RepeatWrapping;
-floorNormalTexture.wrapS = THREE.RepeatWrapping;
-floorColorTexture.wrapT = THREE.RepeatWrapping;
-floorARMTexture.wrapT = THREE.RepeatWrapping;
-floorDisplacementTexture.wrapT = THREE.RepeatWrapping;
-floorNormalTexture.wrapT = THREE.RepeatWrapping;
+// floorColorTexture.wrapS = THREE.RepeatWrapping;
+// floorARMTexture.wrapS = THREE.RepeatWrapping;
+// floorDisplacementTexture.wrapS = THREE.RepeatWrapping;
+// floorNormalTexture.wrapS = THREE.RepeatWrapping;
+// floorColorTexture.wrapT = THREE.RepeatWrapping;
+// floorARMTexture.wrapT = THREE.RepeatWrapping;
+// floorDisplacementTexture.wrapT = THREE.RepeatWrapping;
+// floorNormalTexture.wrapT = THREE.RepeatWrapping;
 
 /**
  * Museum
  */
-const roomDimensions = {
-    width: 12,
-    length: 15,
-    height: 5
-}
+// const roomDimensions = {
+//     width: 12,
+//     length: 15,
+//     height: 5
+// }
 
 // Floor
-const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(roomDimensions.width, roomDimensions.length, 1),
-    new THREE.MeshStandardMaterial({
-        map: floorColorTexture,
-        aoMap: floorARMTexture,
-        roughnessMap: floorARMTexture,
-        displacementMap: floorDisplacementTexture,
-        displacementScale: 0.3,
-        displacementBias: -0.1,
-        normalMap: floorNormalTexture
-    })
-);
-floor.rotation.x = - Math.PI / 2;
-scene.add(floor);
+// const floor = new THREE.Mesh(
+//     new THREE.PlaneGeometry(roomDimensions.width, roomDimensions.length, 1),
+//     new THREE.MeshStandardMaterial({
+//         map: floorColorTexture,
+//         aoMap: floorARMTexture,
+//         roughnessMap: floorARMTexture,
+//         displacementMap: floorDisplacementTexture,
+//         displacementScale: 0.3,
+//         displacementBias: -0.1,
+//         normalMap: floorNormalTexture
+//     })
+// );
+// floor.rotation.x = - Math.PI / 2;
+// scene.add(floor);
 
 // Walls
-const longerWallGeometry = new THREE.PlaneGeometry(roomDimensions.length, roomDimensions.height);
-const shorterWallGeometry = new THREE.PlaneGeometry(roomDimensions.width, roomDimensions.height);
-const wallMaterial = new THREE.MeshStandardMaterial();
+// const longerWallGeometry = new THREE.PlaneGeometry(roomDimensions.length, roomDimensions.height);
+// const shorterWallGeometry = new THREE.PlaneGeometry(roomDimensions.width, roomDimensions.height);
+// const wallMaterial = new THREE.MeshStandardMaterial();
 
-const longWall1 = new THREE.Mesh(longerWallGeometry, wallMaterial);
-const longWall2 = new THREE.Mesh(longerWallGeometry, wallMaterial);
-const shortWall1 = new THREE.Mesh(shorterWallGeometry, wallMaterial);
-const shortWall2 = new THREE.Mesh(shorterWallGeometry, wallMaterial);
+// const longWall1 = new THREE.Mesh(longerWallGeometry, wallMaterial);
+// const longWall2 = new THREE.Mesh(longerWallGeometry, wallMaterial);
+// const shortWall1 = new THREE.Mesh(shorterWallGeometry, wallMaterial);
+// const shortWall2 = new THREE.Mesh(shorterWallGeometry, wallMaterial);
 
-longWall1.rotation.y = Math.PI / 2;
-longWall1.position.x = - roomDimensions.width / 2;
-longWall1.position.y = roomDimensions.height / 2;
+// longWall1.rotation.y = Math.PI / 2;
+// longWall1.position.x = - roomDimensions.width / 2;
+// longWall1.position.y = roomDimensions.height / 2;
 
-longWall2.rotation.y = - Math.PI / 2;
-longWall2.position.x = roomDimensions.width / 2;
-longWall2.position.y = roomDimensions.height / 2;
+// longWall2.rotation.y = - Math.PI / 2;
+// longWall2.position.x = roomDimensions.width / 2;
+// longWall2.position.y = roomDimensions.height / 2;
 
-shortWall1.position.z = - roomDimensions.length / 2;
-shortWall1.position.y = roomDimensions.height / 2;
+// shortWall1.position.z = - roomDimensions.length / 2;
+// shortWall1.position.y = roomDimensions.height / 2;
 
-shortWall2.rotation.y = Math.PI;
-shortWall2.position.z = roomDimensions.length / 2;
-shortWall2.position.y = roomDimensions.height / 2;
+// shortWall2.rotation.y = Math.PI;
+// shortWall2.position.z = roomDimensions.length / 2;
+// shortWall2.position.y = roomDimensions.height / 2;
 
-scene.add(longWall1, longWall2, shortWall1, shortWall2);
+// scene.add(longWall1, longWall2, shortWall1, shortWall2);
 
 // Example Object - TODO: DELETE LATER
 const cube = new THREE.Mesh(
@@ -107,14 +107,14 @@ cubeDebug
     .add(cube.material, 'wireframe');
 
 // Lights
-const ambientLight = new THREE.AmbientLight('#ffffff', 1);
-scene.add(ambientLight);
+// const ambientLight = new THREE.AmbientLight('#ffffff', 1);
+// scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight('#ffffff', 2);
-directionalLight.position.x = 3;
-directionalLight.position.y = 2;
-directionalLight.position.z = 1;
-scene.add(directionalLight);
+// const directionalLight = new THREE.DirectionalLight('#ffffff', 2);
+// directionalLight.position.x = 3;
+// directionalLight.position.y = 2;
+// directionalLight.position.z = 1;
+// scene.add(directionalLight);
 
 // Window size
 const windowSizes = {

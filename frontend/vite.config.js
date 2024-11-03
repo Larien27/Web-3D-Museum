@@ -1,6 +1,7 @@
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default {
+export default defineConfig({
     root: 'src',
     publicDir: '../static',
     server:
@@ -15,4 +16,4 @@ export default {
         sourcemap: true
     },
     plugins: [react()]
-}
+});
