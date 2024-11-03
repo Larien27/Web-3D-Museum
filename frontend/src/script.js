@@ -140,11 +140,11 @@ window.addEventListener('resize', () => {
 
 
 // Camera
-const camera = new THREE.PerspectiveCamera(75, windowSizes.width / windowSizes.height, 1, 1000);
-camera.position.x = 3;
-camera.position.y = 2;
-camera.position.z = 5;
-scene.add(camera);
+// const camera = new THREE.PerspectiveCamera(75, windowSizes.width / windowSizes.height, 1, 1000);
+// camera.position.x = 3;
+// camera.position.y = 2;
+// camera.position.z = 5;
+// scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);

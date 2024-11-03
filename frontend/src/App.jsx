@@ -13,7 +13,14 @@ function App() {
     }
 
     return(
-        <Canvas>
+        <Canvas
+            camera={{
+                position: [3, 2, 5],
+                fov: 75,
+                near: 1,
+                far: 100
+            }}
+        >
             <Lights />
             <Floor dimensions={roomDimensions} />
             <Walls dimensions={roomDimensions} />
