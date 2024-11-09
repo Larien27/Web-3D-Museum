@@ -1,13 +1,13 @@
 #header {
     width: 100%;
     height: 7vh;
-    text-transform: uppercase;
 
     ul {
         list-style-type: none;
         margin: 0;
-        padding: 0;
+        padding: 0 15px;
         height: 100%;
+        text-transform: uppercase;
         display: flex;
         justify-content: flex-end;
         align-items: center;
