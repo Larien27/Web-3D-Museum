@@ -1,12 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import './Museum.scss';
+import './Exhibition.scss';
 import Lights from './Lights';
 import Floor from './Floor';
 import Walls from './Walls';
 import TestCube from './TestCube';
 
-function Museum() {
+function Exhibition() {
 
     const roomDimensions = {
         width: 12,
@@ -32,4 +32,4 @@ function Museum() {
     );
 }
 
-export default Museum;
+export default Exhibition;

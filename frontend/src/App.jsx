@@ -1,11 +1,11 @@
 import Header from './components/Header';
-import Museum from './components/Museum';
+import Exhibition from './pages/exhibition/Exhibition';
 
 function App() {
     return(
         <>
             <Header />
-            <Museum />
+            <Exhibition />
         </>
     );
 }
