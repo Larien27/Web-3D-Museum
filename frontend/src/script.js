@@ -3,15 +3,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import GUI from 'lil-gui';
 
 // Debug Menu
-const gui = new GUI({
-    title: 'Debug Menu'
-});
+// const gui = new GUI({
+//     title: 'Debug Menu'
+// });
 
 // Canvas
-const canvas = document.querySelector('canvas.webgl');
+// const canvas = document.querySelector('canvas.webgl');
 
 // Scene
-const scene = new THREE.Scene();
+// const scene = new THREE.Scene();
 
 /**
  * Textures
@@ -92,19 +92,19 @@ const scene = new THREE.Scene();
 // scene.add(longWall1, longWall2, shortWall1, shortWall2);
 
 // Example Object - TODO: DELETE LATER
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshStandardMaterial()
-);
+// const cube = new THREE.Mesh(
+//     new THREE.BoxGeometry(1, 1, 1),
+//     new THREE.MeshStandardMaterial()
+// );
 
-scene.add(cube);
+// scene.add(cube);
 
 // Cube Debug
-const cubeDebug = gui.addFolder('Cube');
-cubeDebug
-    .add(cube, 'visible');
-cubeDebug
-    .add(cube.material, 'wireframe');
+// const cubeDebug = gui.addFolder('Cube');
+// cubeDebug
+//     .add(cube, 'visible');
+// cubeDebug
+//     .add(cube.material, 'wireframe');
 
 // Lights
 // const ambientLight = new THREE.AmbientLight('#ffffff', 1);
@@ -117,26 +117,26 @@ cubeDebug
 // scene.add(directionalLight);
 
 // Window size
-const windowSizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+// const windowSizes = {
+//     width: window.innerWidth,
+//     height: window.innerHeight
+// }
 
 // On window resize
-window.addEventListener('resize', () => {
+// window.addEventListener('resize', () => {
     
-    // Update inner sizes
-    windowSizes.width = window.innerWidth;
-    windowSizes.height = window.innerHeight;
+//     // Update inner sizes
+//     windowSizes.width = window.innerWidth;
+//     windowSizes.height = window.innerHeight;
 
-    // Update camera
-    camera.aspect = windowSizes.width / windowSizes.height;
-    camera.updateProjectionMatrix();
+//     // Update camera
+//     camera.aspect = windowSizes.width / windowSizes.height;
+//     camera.updateProjectionMatrix();
 
-    // Update renderer
-    renderer.setSize(windowSizes.width, windowSizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
+//     // Update renderer
+//     renderer.setSize(windowSizes.width, windowSizes.height);
+//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// });
 
 
 // Camera
@@ -147,23 +147,23 @@ window.addEventListener('resize', () => {
 // scene.add(camera);
 
 // Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
-});
-renderer.setSize(windowSizes.width, windowSizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// const renderer = new THREE.WebGLRenderer({
+//     canvas: canvas
+// });
+// renderer.setSize(windowSizes.width, windowSizes.height);
+// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-function animate() {
-    // Render
-    renderer.render(scene, camera);
+// function animate() {
+//     // Render
+//     renderer.render(scene, camera);
 
-    controls.update();
+//     controls.update();
 
-    requestAnimationFrame(animate);
-}
+//     requestAnimationFrame(animate);
+// }
 
-animate();
+// animate();
