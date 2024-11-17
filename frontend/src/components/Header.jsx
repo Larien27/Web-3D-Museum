@@ -3,9 +3,12 @@ import './Header.scss';
 function Header() {
     return(
         <div id='header'>
+            <div id='logo'></div>
             <ul>
-                <li><a href='#'>Přihlášení</a></li>
-                <li><a href='#'>Registrace</a></li>
+                <li><a href='#'>Login</a></li>
+                <li><a href='#'>Registration</a></li>
+                <li><a href='#'>Favourites</a></li>
+                <li><a href='#'>Settings</a></li>
             </ul>
         </div>
     );
