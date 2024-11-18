@@ -6,6 +6,7 @@ import ExhibitionList from './pages/exhibition-list/ExhibitionList';
 import Favourites from './pages/favourites/Favourites';
 import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
+import ReportsList from './pages/reports-list/ReportsList';
 
 function App() {
     return(
@@ -18,6 +19,7 @@ function App() {
             <Favourites />
             <Settings />
             <UsersTable />
+            <ReportsList />
         </>
     );
 }
