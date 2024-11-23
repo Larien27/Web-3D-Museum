@@ -7,20 +7,23 @@ import Favourites from './pages/favourites/Favourites';
 import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
     return(
-        <>
+        <Router>
             <Header />
-            <Exhibition />
-            <Registration />
-            <Login />
-            <ExhibitionList />
-            <Favourites />
-            <Settings />
-            <UsersTable />
-            <ReportsList />
-        </>
+            <Routes>
+                <Route path='/exhibition' element={<Exhibition />}/>
+                <Route path='/registration' element={<Registration />}/>
+                <Route path='/login' element={<Login />}/>
+                <Route path='/exhibition-list' element={<ExhibitionList />}/>
+                <Route path='/favourites' element={<Favourites />}/>
+                <Route path='/settings' element={<Settings />}/>
+                <Route path='/users-table' element={<UsersTable />}/>
+                <Route path='/reports-list' element={<ReportsList />}/>
+            </Routes>
+        </Router>
     );
 }
 
