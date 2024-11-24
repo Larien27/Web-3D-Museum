@@ -1,16 +1,26 @@
 import './Header.scss';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
     return(
-        <div id='header'>
-            <div id='logo'></div>
-            <ul>
-                <li><a href='#'>Login</a></li>
-                <li><a href='#'>Registration</a></li>
-                <li><a href='#'>Favourites</a></li>
-                <li><a href='#'>Settings</a></li>
-            </ul>
-        </div>
+        <header id='header'>
+            <nav>
+                <div id='logo'>
+                    <NavLink to='/'>Logo TBA</NavLink>
+                </div>
+
+                <ul>
+                    <li><NavLink to='/exhibition'>Exhibition</NavLink></li>
+                    <li><NavLink to='/login'>Login</NavLink></li>
+                    <li><NavLink to='/registration'>Registration</NavLink></li>
+                    <li><NavLink to='/favourites'>Favourites</NavLink></li>
+                    <li><NavLink to='/settings'>Settings</NavLink></li>
+                    <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
+                    <li><NavLink to='/users-table'>Users Table</NavLink></li>
+                    <li><NavLink to='/reports-list'>Reports List</NavLink></li>
+                </ul>
+            </nav>
+        </header>
     );
 }
 
