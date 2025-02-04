@@ -2,10 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 
+const userRoutes = require('./src/routes/userRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use('/api/users', userRoutes);
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 

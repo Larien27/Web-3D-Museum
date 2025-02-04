@@ -1,33 +1,49 @@
+import axios from 'axios';
 import { useState } from 'react';
 import './Registration.scss';
 
 function Registration() {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+    });
 
-    const handleSubmit = (e) => {
-        console.log('Before Prevent default');
+    const [message, setMessage] = useState(null);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('After Prevent default');
 
-        alert('Submitted');
+        try {
+            const response = await axios.post('/api/users/register', formData);
+
+            if (response.status === 201) {
+                setMessage({ type: 'success', text: 'Registration successful!'});
+            }
+        } catch (error) {
+            setMessage({ type: 'error', text: error.response?.data?.message || 'Registration failed' });
+        }
     }
 
     return(
         <div id='registration'>
             <h1>Registration</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            {message && <p className={message.type}>{message.text}</p>}
+            <form onSubmit={handleSubmit}>
                 <label for='username'>Username</label>
-                <input type='text' id='username' name='username' value={username} onChange={setUsername} />
+                <input type='text' id='username' name='username' value={formData.username} onChange={handleChange} />
 
                 <label for='email'>Email</label>
-                <input type='email' id='email' name='email' value={email} onChange={setEmail} />
+                <input type='email' id='email' name='email' value={formData.email} onChange={handleChange} />
 
                 <label for='password'>Password</label>
-                <input type='password' id='password' name='password' value={password} onChange={setPassword} />
+                <input type='password' id='password' name='password' value={formData.password} onChange={handleChange} />
 
-                <button type="submit" onClick={(e) => handleSubmit(e)}>Register</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     );

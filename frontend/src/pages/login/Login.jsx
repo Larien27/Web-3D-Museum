@@ -1,34 +1,48 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.scss';
 
 function Login() {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-    const handleLogin = async (e) => {
+    const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            });
+            const response = await axios.post('/api/users/login', formData);
+
+            if (response.status === 200) {
+                setMessage({ type: 'success', text: 'Login successful!'});
+                navigate('/exhibition-list');
+            }
         } catch (error) {
-            setWireframeOverride('An error occurred. Please try again later.');
+            setMessage({ type: 'error', text: error.response?.data?.message || 'Login failed' });
         }
     }
 
     return(
         <div id='login'>
             <h1>Login</h1>
-            <form onSubmit={handleLogin}>
-                <label for='username'>Username</label>
-                <input type='text' id='username' />
+            {message && <p className={message.type}>{message.text}</p>}
+            <form onSubmit={handleSubmit}>
+                <label for='email'>Email</label>
+                <input type='text' id='email' name='email' value={formData.email} onChange={handleChange} />
 
                 <label for='password'>Password</label>
-                <input type='password' id='password' />
+                <input type='password' id='password' name='password' value={formData.password} onChange={handleChange} />
 
-                <input type='submit' value='Login' />
+                <button type="submit">Login</button>
             </form>
         </div>
     );
