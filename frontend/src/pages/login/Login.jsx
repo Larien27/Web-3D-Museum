@@ -1,14 +1,15 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import './Login.scss';
 
 function Login() {
+    const { login } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
@@ -24,6 +25,8 @@ function Login() {
 
             if (response.status === 200) {
                 setMessage({ type: 'success', text: 'Login successful!'});
+                const token = response.data.token;
+                login(token);
                 navigate('/exhibition-list');
             }
         } catch (error) {

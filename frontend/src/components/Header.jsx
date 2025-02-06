@@ -1,7 +1,11 @@
-import './Header.scss';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+import './Header.scss';
 
 function Header() {
+    const { user, logout } = useContext(AuthContext);
+
     return(
         <header id='header'>
             <nav>
@@ -10,14 +14,21 @@ function Header() {
                 </div>
 
                 <ul>
-                    <li><NavLink to='/exhibition'>Exhibition</NavLink></li>
-                    <li><NavLink to='/login'>Login</NavLink></li>
-                    <li><NavLink to='/registration'>Registration</NavLink></li>
-                    <li><NavLink to='/favourites'>Favourites</NavLink></li>
-                    <li><NavLink to='/settings'>Settings</NavLink></li>
-                    <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
-                    <li><NavLink to='/users-table'>Users Table</NavLink></li>
-                    <li><NavLink to='/reports-list'>Reports List</NavLink></li>
+                    {user ? (
+                        <>
+                            <li><NavLink to='/exhibition'>Exhibition</NavLink></li>
+                            <li><NavLink to='/favourites'>Favourites</NavLink></li>
+                            <li><NavLink to='/settings'>Settings</NavLink></li>
+                            <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
+                            <li><NavLink to='/users-table'>Users Table</NavLink></li>
+                            <li><NavLink to='/reports-list'>Reports List</NavLink></li>
+                        </>
+                    ) : (
+                        <>
+                            <li><NavLink to='/login'>Login</NavLink></li>
+                            <li><NavLink to='/registration'>Registration</NavLink></li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>
