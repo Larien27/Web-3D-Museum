@@ -56,7 +56,32 @@ const userService = {
         // Generate a JWT token
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
         return token;
-    }
+    },
+
+    async changeUsername(currentUsername, newUsername, password) {
+        const user = await userRepository.findByUsername(currentUsername);
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            throw new Error('Invalid credentials.');
+        }
+        return await userRepository.updateUsername(user.id, newUsername);
+    },
+
+    async changeEmail(currentEmail, newEmail, password) {
+        const user = await userRepository.findByEmail(currentEmail);
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            throw new Error('Invalid credentials.');
+        }
+        return await userRepository.updateEmail(user.id, newEmail);
+    },
+
+    async changePassword(username, currentPassword, newPassword) {
+        const user = await userRepository.findByUsername(username);
+        if (!user || !(await bcrypt.compare(currentPassword, user.password))) {
+            throw new Error('Invalid credentials.');
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        return await userRepository.updatePassword(user.id, hashedPassword);
+    },
 };
 
 module.exports = userService;

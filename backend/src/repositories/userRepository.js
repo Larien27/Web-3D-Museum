@@ -7,12 +7,37 @@ const userRepository = {
         return result.rows[0];
     },
 
+    async findByUsername(username) {
+        const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+        return result.rows[0];
+    },
+
+    async findById(userId) {
+        const result = await db.query('SELECT * FROM users WHERE id = $1', [userId]);
+        return result.rows[0];
+    },
+
     // Create a new user in the database
     async createUser(userData) {
         const { username, email, password } = userData;
         const result = await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email', [username, email, password]);
         return result.rows[0];
-    }
+    },
+
+    async updateUsername(userId, newUsername) {
+        const result = await db.query('UPDATE users SET username = $1 WHERE id = $2', [newUsername, userId]);
+        return result.rows[0];
+    },
+
+    async updateEmail(userId, newEmail) {
+        const result = await db.query('UPDATE users SET email = $1 WHERE id = $2', [newEmail, userId]);
+        return result.rows[0];
+    },
+
+    async updatePassword(userId, hashedPassword) {
+        const result = await db.query('UPDATE users SET password = $1 WHERE id = $2', [hashedPassword, userId]);
+        return result.rows[0];
+    },
 };
 
 module.exports = userRepository;

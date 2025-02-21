@@ -15,7 +15,6 @@ const userController = {
 
         } catch (error) {
             // Handle errors
-            console.error(error);
             res.status(400).json({ message: error.message });
         }
     },
@@ -31,10 +30,39 @@ const userController = {
             // Send success response
             res.status(200).json({ message: 'Login was successful.', token });
         } catch (error) {
-            console.error(error);
             res.status(400).json({ message: error.message });
         }
-    }
+    },
+
+    async changeUsername(req, res) {
+        const { currentUsername, newUsername, password } = req.body;
+        try {
+            await userService.changeUsername(currentUsername, newUsername, password);
+            res.status(200).json({ message: 'Username changed successfully!' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
+
+    async changeEmail(req, res) {
+        const { currentEmail, newEmail, password } = req.body;
+        try {
+            await userService.changeEmail(currentEmail, newEmail, password);
+            res.status(200).json({ message: 'Email changed successfully!' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
+
+    async changePassword(req, res) {
+        const { username, currentPassword, newPassword } = req.body;
+        try {
+            await userService.changePassword(username, currentPassword, newPassword);
+            res.status(200).json({ message: 'Password changed successfully!' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = userController;
