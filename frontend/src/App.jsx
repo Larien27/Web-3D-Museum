@@ -7,6 +7,7 @@ import Favourites from './pages/favourites/Favourites';
 import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
+import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -27,6 +28,7 @@ function App() {
                         <Route path='/settings' element={<Settings />}/>
                         <Route path='/users-table' element={<UsersTable />}/>
                         <Route path='/reports-list' element={<ReportsList />}/>
+                        <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
                     </Route>
                 </Routes>
             </Router>
