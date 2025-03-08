@@ -35,18 +35,21 @@ const userRepository = {
     },
 
     async updatePassword(userId, hashedPassword) {
-        const result = await db.query('UPDATE users SET password = $1 WHERE id = $2', [hashedPassword, userId]);
-        return result.rows[0];
+        await db.query('UPDATE users SET password = $1 WHERE id = $2', [hashedPassword, userId]);
     },
 
     async findAllUsers() {
-        const result = await db.query('SELECT * FROM users');
+        const result = await db.query('SELECT * FROM users ORDER BY username');
         return result.rows;
     },
 
     async deleteUser(userId) {
         await db.query('DELETE FROM users WHERE id = $1', [userId]);
-    }
+    },
+
+    async updateUserRole(userId, newRole) {
+        await db.query('UPDATE users SET role = $1 WHERE id = $2', [newRole, userId]);
+    },
 };
 
 module.exports = userRepository;

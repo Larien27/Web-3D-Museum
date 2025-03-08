@@ -82,6 +82,31 @@ const userController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    async changeUserRole(req, res) {
+        try {
+            const { userId, newRole } = req.body;
+            await userService.changeUserRole(userId, newRole);
+            res.status(200).json({ message: 'User role updated successfully.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    async resetPassword(req, res) {
+        try {
+            const { userId, tempPassword } = req.body;
+
+            if (!tempPassword) {
+                return res.status(400).json({ message: 'Temporary password is required for the reset.' });
+            }
+
+            await userService.resetPassword(userId, tempPassword);
+            res.status(200).json({ message: 'Password reset was successful.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = userController;

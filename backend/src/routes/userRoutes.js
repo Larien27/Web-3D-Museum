@@ -10,5 +10,7 @@ router.post('/change-email', userController.changeEmail);
 router.post('/change-password', userController.changePassword);
 router.get('/', userController.getAllUsers);
 router.delete('/:userId', userController.deleteUser);
+router.put('/update-role', userController.changeUserRole);
+router.put('/reset-password', userController.resetPassword);
 
 module.exports = router;

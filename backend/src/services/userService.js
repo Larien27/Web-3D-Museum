@@ -93,6 +93,32 @@ const userService = {
             throw new Error('User not found.');
         }
         await userRepository.deleteUser(userId);
+    },
+
+    async changeUserRole(userId, newRole) {
+        const validRoles = ['Visitor', 'Exhibitor', 'Admin'];
+        if (!validRoles.includes(newRole)) {
+            throw new Error('Invalid role.');
+        }
+
+        const user = await userRepository.findById(userId);
+        if (!user) {
+            throw new Error('User not found.');
+        }
+
+        await userRepository.updateUserRole(userId, newRole);
+    },
+
+    async resetPassword(userId, tempPassword) {
+        const user = await userRepository.findById(userId);
+        if (!user) {
+            throw new Error('User not found.');
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(tempPassword, salt);
+        
+        await userRepository.updatePassword(userId, hashedPassword);
     }
 };
 

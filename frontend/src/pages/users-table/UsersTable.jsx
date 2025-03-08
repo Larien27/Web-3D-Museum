@@ -21,6 +21,31 @@ function UsersTable() {
         fetchUsers();
     });
 
+    const handleRoleChange = async (userId, newRole) => {
+        try {
+            await axios.put('/api/users/update-role', { userId, newRole });
+            setUsers(users.map(user => user.id === userId ? { ...user, role: newRole } : user));
+        } catch (err) {
+            setError('Failed to update role.');
+        }
+    };
+
+    const handleResetPassword = async (userId) => {
+        const tempPassword = prompt('Enter a temporary password for the user:');
+
+        if (!tempPassword) {
+            alert("Password reset was cancelled.");
+            return;
+        }
+
+        try {
+            await axios.put('/api/users/reset-password', { userId, tempPassword });
+            alert('Password reset successfully!');
+        } catch (err) {
+            alert('Failed to reset password.');
+        }
+    };
+
     const handleDelete = async (userId) => {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
 
@@ -28,7 +53,7 @@ function UsersTable() {
             await axios.delete(`/api/users/${userId}`);
             setUsers(users.filter(user => user.id !== userId));
         } catch (err) {
-            alert('Failed to delete user.');
+            setError('Failed to delete user.');
         }
     };
 
@@ -43,17 +68,25 @@ function UsersTable() {
                 <table>
                     <tr>
                         <th>Username</th>
+                        <th>Email</th>
                         <th>Role</th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                     {users.map((user) => (
-                        <tr>
+                        <tr key={user.id}>
                             <td>{user.username}</td>
-                            <td>Visitor</td>
-                            <td>PROMOTE</td>
-                            <td>EDIT</td>
+                            <td>{user.email}</td>
+                            <td>
+                                <select value={user.role} onChange={(e) => handleRoleChange(user.id, e.target.value)}>
+                                    <option value='Visitor'>Visitor</option>
+                                    <option value='Exhibitor'>Exhibitor</option>
+                                    <option value='Admin'>Admin</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button onClick={() => handleResetPassword(user.id)}>RESET PASSWORD</button>
+                            </td>
                             <td>
                                 <button onClick={() => handleDelete(user.id)}>DELETE</button>
                             </td>
