@@ -8,7 +8,7 @@ const exhibitionRepository = {
     },
 
     async findAllExhibitions() {
-        const result = await db.query('SELECT * FROM exhibitions');
+        const result = await db.query('SELECT * FROM exhibitions ORDER BY id DESC');
         return result.rows;
     },
 
