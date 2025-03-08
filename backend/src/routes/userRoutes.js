@@ -9,5 +9,6 @@ router.post('/change-username', userController.changeUsername);
 router.post('/change-email', userController.changeEmail);
 router.post('/change-password', userController.changePassword);
 router.get('/', userController.getAllUsers);
+router.delete('/:userId', userController.deleteUser);
 
 module.exports = router;

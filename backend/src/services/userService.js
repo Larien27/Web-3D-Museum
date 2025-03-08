@@ -86,6 +86,14 @@ const userService = {
     async getAllUsers() {
         return await userRepository.findAllUsers();
     },
+
+    async deleteUser(userId) {
+        const user = await userRepository.findById(userId);
+        if (!user) {
+            throw new Error('User not found.');
+        }
+        await userRepository.deleteUser(userId);
+    }
 };
 
 module.exports = userService;

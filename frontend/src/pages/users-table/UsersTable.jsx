@@ -21,6 +21,17 @@ function UsersTable() {
         fetchUsers();
     });
 
+    const handleDelete = async (userId) => {
+        if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+        try {
+            await axios.delete(`/api/users/${userId}`);
+            setUsers(users.filter(user => user.id !== userId));
+        } catch (err) {
+            alert('Failed to delete user.');
+        }
+    };
+
     if (loading) return <p>Loading users...</p>;
     if (error) return <p className='error'>{error}</p>;
 
@@ -43,7 +54,9 @@ function UsersTable() {
                             <td>Visitor</td>
                             <td>PROMOTE</td>
                             <td>EDIT</td>
-                            <td>DELETE</td>
+                            <td>
+                                <button onClick={() => handleDelete(user.id)}>DELETE</button>
+                            </td>
                         </tr>
                     ))}
                 </table>

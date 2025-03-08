@@ -43,6 +43,10 @@ const userRepository = {
         const result = await db.query('SELECT * FROM users');
         return result.rows;
     },
+
+    async deleteUser(userId) {
+        await db.query('DELETE FROM users WHERE id = $1', [userId]);
+    }
 };
 
 module.exports = userRepository;
