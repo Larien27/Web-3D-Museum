@@ -20,7 +20,7 @@ function Header() {
                             <li><NavLink to='/favourites'>Favourites</NavLink></li>
                             <li><NavLink to='/settings'>Settings</NavLink></li>
                             <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
-                            <li><NavLink to='/users-table'>Users Table</NavLink></li>
+                            <li><NavLink to='/users-table'>Manage Users</NavLink></li>
                             <li><NavLink to='/reports-list'>Reports List</NavLink></li>
                             <li><NavLink to='/create-exhibition'>Create Exhibition</NavLink></li>
                             <li><button onClick={logout}>Logout</button></li>

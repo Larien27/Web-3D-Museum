@@ -82,6 +82,10 @@ const userService = {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         return await userRepository.updatePassword(user.id, hashedPassword);
     },
+
+    async getAllUsers() {
+        return await userRepository.findAllUsers();
+    },
 };
 
 module.exports = userService;

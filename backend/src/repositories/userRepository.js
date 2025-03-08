@@ -38,6 +38,11 @@ const userRepository = {
         const result = await db.query('UPDATE users SET password = $1 WHERE id = $2', [hashedPassword, userId]);
         return result.rows[0];
     },
+
+    async findAllUsers() {
+        const result = await db.query('SELECT * FROM users');
+        return result.rows;
+    },
 };
 
 module.exports = userRepository;
