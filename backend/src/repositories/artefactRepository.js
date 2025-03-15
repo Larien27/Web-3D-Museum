@@ -40,6 +40,11 @@ const artefactRepository = {
         const result = await db.query('SELECT * FROM artefacts WHERE exhibition_id = $1', [exhibitionId]);
         return result.rows;
     },
+
+    async findArtefactById(artefactId) {
+        const result = await db.query('SELECT * FROM artefacts WHERE id = $1', [artefactId]);
+        return result.rows[0];
+    },
 };
 
 module.exports = artefactRepository;

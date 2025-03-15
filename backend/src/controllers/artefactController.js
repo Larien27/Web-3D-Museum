@@ -36,6 +36,15 @@ const artefactController = {
             req.status(500).json({ message: error.message });
         }
     },
+
+    async getArtefactById(req, res) {
+        try {
+            const artefact = await artefactService.getArtefactById(req.params.artefactId);
+            res.status(200).json(artefact);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = artefactController;

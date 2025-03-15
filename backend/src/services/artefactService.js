@@ -11,6 +11,14 @@ const artefactService = {
     async getArtefactsbyExhibition(exhibitionId) {
         return await artefactRepository.findArtefactsByExhibition(exhibitionId);
     },
+
+    async getArtefactById(artefactId) {
+        const artefact = await artefactRepository.findArtefactById(artefactId);
+        if (!artefact) {
+            throw new Error('Artefact not found.');
+        }
+        return artefact;
+    },
 };
 
 module.exports = artefactService;
