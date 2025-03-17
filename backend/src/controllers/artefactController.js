@@ -33,7 +33,7 @@ const artefactController = {
             const artefacts = await artefactService.getArtefactsbyExhibition(req.params.exhibitionId);
             res.status(200).json(artefacts);
         } catch (error) {
-            req.status(500).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -43,6 +43,39 @@ const artefactController = {
             res.status(200).json(artefact);
         } catch (error) {
             res.status(404).json({ message: error.message });
+        }
+    },
+
+    async addFavorite(req, res) {
+        try {
+            const { artefactId } = req.params;
+            const userId = req.user.id;
+            await artefactService.addFavorite(userId, artefactId);
+            res.status(200).json({ message: 'Artefact added to favorites.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    async removeFavorite(req, res) {
+        try {
+            const { artefactId } = req.params;
+            const userId = req.user.id;
+            await artefactService.removeFavorite(userId, artefactId);
+            res.status(200).json({ message: 'Artefact removed from favorites.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    async isFavorite(req, res) {
+        try {
+            const { artefactId } = req.params;
+            const userId = req.user.id;
+            const favorite = await artefactService.isFavorite(userId, artefactId);
+            res.status(200).json({ isFavorite: favorite });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     },
 }
