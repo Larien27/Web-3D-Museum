@@ -8,7 +8,7 @@ function ExhibitionBox({ id, title, description, imageUrl}) {
                 <h3>{title}</h3>
             </Link>
             <p>{description}</p>
-            <Link to={`/api/artefacts/${id}/create-artefact`}>Add Artefact</Link>
+            <Link to={`/artefacts/${id}/create-artefact`}>Add Artefact</Link>
         </div>
     );
 }
