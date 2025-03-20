@@ -21,7 +21,7 @@ function ExhibitionList() {
         }
 
         fetchExhibitions();
-    });
+    }, []);
 
     if (loading) return <p>Loading exhibitions...</p>;
     if (error) return <p className='error'>{error}</p>;

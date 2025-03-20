@@ -19,7 +19,7 @@ function UsersTable() {
         }
 
         fetchUsers();
-    });
+    }, []);
 
     const handleRoleChange = async (userId, newRole) => {
         try {
