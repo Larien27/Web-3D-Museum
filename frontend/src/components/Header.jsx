@@ -17,7 +17,6 @@ function Header() {
                     {user ? (
                         <>
                             <li><NavLink to='/exhibition'>Exhibition</NavLink></li>
-                            <li><NavLink to='/favourites'>Favourites</NavLink></li>
                             <li><NavLink to='/settings'>Settings</NavLink></li>
                             <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
                             <li><NavLink to='/users-table'>Manage Users</NavLink></li>

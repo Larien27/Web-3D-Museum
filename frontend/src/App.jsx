@@ -4,7 +4,6 @@ import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
 import Exhibition from './pages/exhibition/Exhibition';
 import ExhibitionList from './pages/exhibition-list/ExhibitionList';
-import Favourites from './pages/favourites/Favourites';
 import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
@@ -30,7 +29,6 @@ function App() {
                     <Route element={<ProtectedRoute />}>
                         <Route path='/exhibition' element={<Exhibition />}/>
                         <Route path='/exhibition-list' element={<ExhibitionList />}/>
-                        <Route path='/favourites' element={<Favourites />}/>
                         <Route path='/settings' element={<Settings />}/>
                         <Route path='/users-table' element={<UsersTable />}/>
                         <Route path='/reports-list' element={<ReportsList />}/>
