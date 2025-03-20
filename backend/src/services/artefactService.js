@@ -30,7 +30,11 @@ const artefactService = {
 
     async isFavorite(userId, artefactId) {
         return await artefactRepository.findFavorite(userId, artefactId);
-    }
+    },
+
+    async addReport(userId, artefactId, reason) {
+        return await artefactRepository.addReport(userId, artefactId, reason);
+    },
 };
 
 module.exports = artefactService;

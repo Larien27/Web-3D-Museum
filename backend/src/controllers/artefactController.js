@@ -78,6 +78,23 @@ const artefactController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    async addReport(req, res) {
+        try {
+            const { artefactId } = req.params;
+            const userId = req.user.id;
+            const { reason } = req.body;
+
+            if (!reason) {
+                return res.status(400).json({ message: 'Report reason is required.' });
+            }
+
+            await artefactService.addReport(userId, artefactId, reason);
+            res.status(201).json({ message: 'Artefact report was submitted.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = artefactController;

@@ -12,6 +12,7 @@ import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm
 import ArtefactUploadForm from './pages/create-exhibition/ArtefactUploadForm';
 import ExhibitionDetail from './pages/exhibition-detail/ExhibitionDetail';
 import ArtefactDetail from './pages/artefact-detail/ArtefactDetail';
+import ReportForm from './pages/report-form/ReportForm';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/artefacts/:exhibitionId/create-artefact" element={<ArtefactUploadForm />} />
                         <Route path="/exhibitions/:exhibitionId" element={<ExhibitionDetail />} />
                         <Route path="/artefacts/:artefactId" element={<ArtefactDetail />} />
+                        <Route path="/artefacts/:artefactId/report-form" element={<ReportForm />} />
                     </Route>
                 </Routes>
             </Router>

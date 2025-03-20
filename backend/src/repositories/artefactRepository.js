@@ -57,7 +57,11 @@ const artefactRepository = {
     async findFavorite(userId, artefactId) {
         const result = await db.query('SELECT 1 FROM favorites WHERE user_id = $1 AND artefact_id = $2', [userId, artefactId]);
         return result.rowCount > 0;
-    }
+    },
+
+    async addReport(userId, artefactId, reason) {
+        await db.query('INSERT INTO reports (artefact_id, user_id, reason) VALUES ($1, $2, $3)', [artefactId, userId, reason]);
+    },
 };
 
 module.exports = artefactRepository;

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 
@@ -9,6 +9,7 @@ function ArtefactDetail() {
     const [artefact, setArtefact] = useState(null);
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchArtefact() {
@@ -58,6 +59,10 @@ function ArtefactDetail() {
         }
     }
 
+    const handleReportButtonClick = () => {
+        navigate(`/artefacts/${artefactId}/report-form`);
+    };
+
     if (error) return <p className='error'>{error}</p>;
     if (!artefact) return <p>Loading</p>;
 
@@ -70,6 +75,8 @@ function ArtefactDetail() {
             <button onClick={toggleFavorite}>
                 {isFavorite ? '❤️' : '🤍'}
             </button>
+
+            <button onClick={handleReportButtonClick}>🚩</button>
         </div>
     );
 }
