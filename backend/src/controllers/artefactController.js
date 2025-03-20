@@ -95,6 +95,15 @@ const artefactController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    async getAllReports(req, res) {
+        try {
+            const reports = await artefactService.getAllReports();
+            res.status(200).json(reports);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = artefactController;

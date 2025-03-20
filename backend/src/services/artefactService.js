@@ -35,6 +35,10 @@ const artefactService = {
     async addReport(userId, artefactId, reason) {
         return await artefactRepository.addReport(userId, artefactId, reason);
     },
+
+    async getAllReports() {
+        return await artefactRepository.getAllReports();
+    },
 };
 
 module.exports = artefactService;

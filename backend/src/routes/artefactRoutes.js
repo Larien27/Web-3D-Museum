@@ -5,6 +5,7 @@ const authenticateUser = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Define artefact routes
+router.get('/reports', artefactController.getAllReports);
 router.post('/:exhibitionId/upload', artefactController.uploadArtefact);
 router.get('/exhibition/:exhibitionId', artefactController.getArtefactsbyExhibition);
 router.get('/:artefactId', artefactController.getArtefactById);
