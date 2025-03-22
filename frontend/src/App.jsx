@@ -27,16 +27,16 @@ function App() {
                     <Route path='/registration' element={<Registration />}/>
 
                     <Route element={<ProtectedRoute />}>
-                        <Route path='/exhibition' element={<Exhibition />}/>
                         <Route path='/exhibition-list' element={<ExhibitionList />}/>
                         <Route path='/settings' element={<Settings />}/>
                         <Route path='/users-table' element={<UsersTable />}/>
                         <Route path='/reports-list' element={<ReportsList />}/>
                         <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
-                        <Route path="/artefacts/:exhibitionId/create-artefact" element={<ArtefactUploadForm />} />
-                        <Route path="/exhibitions/:exhibitionId" element={<ExhibitionDetail />} />
-                        <Route path="/artefacts/:artefactId" element={<ArtefactDetail />} />
-                        <Route path="/artefacts/:artefactId/report-form" element={<ReportForm />} />
+                        <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
+                        <Route path='/exhibitions/3d/:exhibitionId' element={<Exhibition />} />
+                        <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
+                        <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
+                        <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
                     </Route>
                 </Routes>
             </Router>
