@@ -39,6 +39,16 @@ const artefactService = {
     async getAllReports() {
         return await artefactRepository.getAllReports();
     },
+
+    async get3DModelsByExhibition(exhibitionId) {
+        const artefacts = await artefactRepository.findArtefactsByExhibition(exhibitionId);
+
+        return artefacts.filter(artefact => artefact.file_path).map(artefact => ({
+            id: artefact.id,
+            title: artefact.title,
+            modelFileUrl: artefact.file_path
+        }));
+    }
 };
 
 module.exports = artefactService;

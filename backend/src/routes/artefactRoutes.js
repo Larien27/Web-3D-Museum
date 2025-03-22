@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Define artefact routes
 router.get('/reports', artefactController.getAllReports);
+router.get('/:exhibitionId/artefacts/3d', artefactController.get3DModelsByExhibition);
 router.post('/:exhibitionId/upload', artefactController.uploadArtefact);
 router.get('/exhibition/:exhibitionId', artefactController.getArtefactsbyExhibition);
 router.get('/:artefactId', artefactController.getArtefactById);

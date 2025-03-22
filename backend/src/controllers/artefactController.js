@@ -104,6 +104,16 @@ const artefactController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    async get3DModelsByExhibition(req, res) {
+        try {
+            const { exhibitionId } = req.params;
+            const models = await artefactService.get3DModelsByExhibition(exhibitionId);
+            res.status(200).json(models);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = artefactController;
