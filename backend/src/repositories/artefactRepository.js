@@ -6,7 +6,7 @@ const artefactRepository = {
     async addArtefact(exhibitionId, artefactData) {
         const { title, description, file } = artefactData;
 
-        const fileName = `artefacts/${exhibitionId}_${file.originalname}_${Date.now()}`;
+        const fileName = `artefacts/${Date.now()}_${exhibitionId}_${file.originalname}`;
         const fileUpload = bucket.file(fileName);
 
         try {
