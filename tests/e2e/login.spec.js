@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import HeaderPO from './page-objects/header.po';
 import LoginPO from './page-objects/login.po';
 
-let headerPO
+let headerPO;
 let loginPO;
 
 test.beforeEach(async ({ page }) => {
