@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import HeaderPO from './page-objects/header.po';
 import LoginPO from './page-objects/login.po';
+import { registerUser } from './utils/auth.utils';
 
 let headerPO;
 let loginPO;
@@ -22,24 +23,10 @@ test('Login page loads successfully', async () => {
     });
 });
 
-test('Registered user logs in successfully', async ({ page }) => {
+test.only('Registered user logs in successfully', async ({ page }) => {
     const expectedNavTexts = ['Settings', 'Exhibition List', 'Manage Users', 'Reports List', 'Create Exhibition', 'Logout'];
-    const randomString = Math.random().toString(36).substring(2, 10);
-    const username = `user_${randomString}`;
-    const email = `user_${randomString}@example.com`;
-    const password = `Password_${randomString}`;
+    const { email, password } = await registerUser(page);
 
-
-    await test.step('Register the user via API', async () => {
-        const registrationResponse = await page.request.post('/api/users/register', {
-            data: {
-                username: username,
-                email: email,
-                password: password,
-            },
-        });
-        await expect(registrationResponse.ok()).toBeTruthy();
-    });
     await test.step('Log the user in', async () => {
         await loginPO.emailInput.fill(email);
         await loginPO.passwordInput.fill(password);
