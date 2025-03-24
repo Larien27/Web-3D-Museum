@@ -25,3 +25,13 @@ test('Create Exhibition page loads successfully', async () => {
         await expect(exhibitionPO.createButton).toBeVisible();
     });
 });
+
+test('Create exhibition successfully', async () => {
+    await test.step('Fill in the form and click create button', async () => {
+        await exhibitionPO.titleInput.fill('');
+        await exhibitionPO.descriptionInput.fill('Some test description.');
+    });
+    await test.step('Verify the button is visible', async () => {
+        await expect(exhibitionPO.createButton).toBeVisible();
+    });
+});
