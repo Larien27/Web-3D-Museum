@@ -26,12 +26,24 @@ test('Create Exhibition page loads successfully', async () => {
     });
 });
 
-test('Create exhibition successfully', async () => {
+test.only('Create exhibition successfully', async ({ page }) => {
+    const randomString = Math.random().toString(36).substring(2, 10);
+    const title = `Exhibition ${randomString}`;
+    const description = `Test description for ${title}`;
+
     await test.step('Fill in the form and click create button', async () => {
-        await exhibitionPO.titleInput.fill('');
-        await exhibitionPO.descriptionInput.fill('Some test description.');
+        await exhibitionPO.titleInput.fill(title);
+        await exhibitionPO.descriptionInput.fill(description);
+        await exhibitionPO.createButton.click();
     });
-    await test.step('Verify the button is visible', async () => {
-        await expect(exhibitionPO.createButton).toBeVisible();
+    
+    await test.step('Go to Exhibition List page', async () => {
+        await page.waitForNavigation();
+        await page.goto('/exhibition-list');
+    });
+    await test.step('Verify the new exhibition is displayed', async () => {
+        await page.waitForSelector('#exhibition-list');
+        const isExhibitionVisible = await page.locator(`text=${title}`).first().isVisible();
+        expect(isExhibitionVisible).toBeTruthy();
     });
 });
