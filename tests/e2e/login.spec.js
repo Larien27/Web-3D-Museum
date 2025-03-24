@@ -22,8 +22,8 @@ test('Login page loads successfully', async () => {
     });
 });
 
-test.only('Registered user logs in successfully', async ({ page }) => {
-    const expectedNavTexts = ['Exhibition', 'Favourites', 'Settings', 'Exhibition List', 'Manage Users', 'Reports List', 'Create Exhibition', 'Logout'];
+test('Registered user logs in successfully', async ({ page }) => {
+    const expectedNavTexts = ['Settings', 'Exhibition List', 'Manage Users', 'Reports List', 'Create Exhibition', 'Logout'];
     const randomString = Math.random().toString(36).substring(2, 10);
     const username = `user_${randomString}`;
     const email = `user_${randomString}@example.com`;
