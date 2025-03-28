@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 
@@ -77,6 +77,8 @@ function ArtefactDetail() {
             </button>
 
             <button onClick={handleReportButtonClick}>🚩</button>
+
+            <Link to={`/artefacts/${artefactId}/edit`}>Edit</Link>
         </div>
     );
 }

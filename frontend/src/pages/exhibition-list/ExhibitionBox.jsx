@@ -9,6 +9,7 @@ function ExhibitionBox({ id, title, description, imageUrl}) {
             </Link>
             <p>{description}</p>
             <Link to={`/artefacts/${id}/create-artefact`}>Add Artefact</Link>
+            <Link to={`/exhibitions/${id}/edit`}>Edit</Link>
 
             <Link to={`/exhibitions/3d/${id}`}>
                 <button>View 3D Exhibition</button>
