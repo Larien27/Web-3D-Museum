@@ -8,6 +8,7 @@ import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
 import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm';
+import ExhibitionEditForm from './pages/edit-exhibition/ExhibitionEditForm';
 import ArtefactUploadForm from './pages/create-artefact/ArtefactUploadForm';
 import ExhibitionDetail from './pages/exhibition-detail/ExhibitionDetail';
 import ArtefactDetail from './pages/artefact-detail/ArtefactDetail';
@@ -32,6 +33,7 @@ function App() {
                         <Route path='/users-table' element={<UsersTable />}/>
                         <Route path='/reports-list' element={<ReportsList />}/>
                         <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
+                        <Route path='/exhibitions/:exhibitionId/edit' element={<ExhibitionEditForm />}/>
                         <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
                         <Route path='/exhibitions/3d/:exhibitionId' element={<Exhibition />} />
                         <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
