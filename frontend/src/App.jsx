@@ -10,6 +10,7 @@ import ReportsList from './pages/reports-list/ReportsList';
 import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm';
 import ExhibitionEditForm from './pages/edit-exhibition/ExhibitionEditForm';
 import ArtefactUploadForm from './pages/create-artefact/ArtefactUploadForm';
+import ArtefactEditForm from './pages/edit-artefact/ArtefactEditForm';
 import ExhibitionDetail from './pages/exhibition-detail/ExhibitionDetail';
 import ArtefactDetail from './pages/artefact-detail/ArtefactDetail';
 import ReportForm from './pages/report-form/ReportForm';
@@ -38,6 +39,7 @@ function App() {
                         <Route path='/exhibitions/3d/:exhibitionId' element={<Exhibition />} />
                         <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
                         <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
+                        <Route path='/artefacts/:artefactId/edit' element={<ArtefactEditForm />} />
                         <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
                     </Route>
                 </Routes>
