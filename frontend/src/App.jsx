@@ -8,7 +8,7 @@ import Settings from './pages/settings/Settings';
 import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
 import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm';
-import ArtefactUploadForm from './pages/create-exhibition/ArtefactUploadForm';
+import ArtefactUploadForm from './pages/create-artefact/ArtefactUploadForm';
 import ExhibitionDetail from './pages/exhibition-detail/ExhibitionDetail';
 import ArtefactDetail from './pages/artefact-detail/ArtefactDetail';
 import ReportForm from './pages/report-form/ReportForm';
