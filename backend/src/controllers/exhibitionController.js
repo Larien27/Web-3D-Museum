@@ -27,6 +27,15 @@ const exhibitionController = {
             res.status(404).json({ message: error.message });
         }
     },
+
+    async updateExhibition(req, res) {
+        try {
+            const updatedExhibition = await exhibitionService.updateExhibition(req.params.exhibitionId, req.body);
+            res.status(200).json({ message: 'Exhibition updated successfully.', updatedExhibition });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
 }
 
 module.exports = exhibitionController;

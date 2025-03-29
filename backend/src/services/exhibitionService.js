@@ -19,6 +19,17 @@ const exhibitionService = {
         }
         return exhibition;
     },
+
+    async updateExhibition(exhibitionId, updatedData) {
+        if (!updatedData.title || !updatedData.description) {
+            throw new Error('Exhibition title and description are required.');
+        }
+        const exhibition = await exhibitionRepository.findExhibitionById(exhibitionId);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+        return await exhibitionRepository.updateExhibition(exhibitionId, updatedData);
+    },
 };
 
 module.exports = exhibitionService;

@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/create', exhibitionController.createExhibition);
 router.get('/', exhibitionController.getAllExhibitions);
 router.get('/:exhibitionId', exhibitionController.getExhibitionById);
+router.put('/:exhibitionId/edit', exhibitionController.updateExhibition);
 
 module.exports = router;
