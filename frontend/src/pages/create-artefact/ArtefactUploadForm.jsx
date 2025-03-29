@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ArtefactUploadForm() {
     const { exhibitionId } = useParams();
-    
     const [file, setFile] = useState(null);
     const [artefactData, setArtefactData] = useState({
         title: '',
         description: '',
     });
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setArtefactData({ ...artefactData, [e.target.name]: e.target.value });
@@ -39,9 +39,11 @@ function ArtefactUploadForm() {
             });
 
             if (response.status === 201) {
+                const { artefactId } = response.data;
                 setMessage({ type: 'success', text: 'Artefact uploaded successfully.' });
                 setFile(null);
                 setArtefactData({ title: '', description: '' });
+                navigate(`/artefacts/${artefactId}`);
             }
         } catch (error) {
             setMessage({ type: 'error', text: 'Artefact upload failed' });
