@@ -53,6 +53,13 @@ function ExhibitionDetail() {
             ) : (
                 <p>No artefacts found for this exhibition.</p>
             )}
+
+            <Link to={`/artefacts/${exhibitionId}/create-artefact`}>Add Artefact</Link>
+            <Link to={`/exhibitions/${exhibitionId}/edit`}>Edit</Link>
+
+            <Link to={`/exhibitions/3d/${exhibitionId}`}>
+                <button>View 3D Exhibition</button>
+            </Link>
         </div>
     );
 }
