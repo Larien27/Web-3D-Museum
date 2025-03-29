@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
+import Artefact from '../3d-artefact/Artefact';
+import './ArtefactDetail.scss';
 
 function ArtefactDetail() {
     const { artefactId } = useParams();
@@ -70,7 +72,7 @@ function ArtefactDetail() {
         <div id='artefact-detail'>
             <h1>{artefact.title}</h1>
             <p>{artefact.description}</p>
-            <p>{/*artefact.file_path*/}</p>
+            <Artefact artefactUrl={artefact.file_path} />
 
             <button onClick={toggleFavorite}>
                 {isFavorite ? '❤️' : '🤍'}
