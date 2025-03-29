@@ -96,9 +96,9 @@ const artefactController = {
         }
     },
 
-    async getAllReports(req, res) {
+    async getAllPendingReports(req, res) {
         try {
-            const reports = await artefactService.getAllReports();
+            const reports = await artefactService.getAllPendingReports();
             res.status(200).json(reports);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -112,6 +112,26 @@ const artefactController = {
             res.status(200).json(models);
         } catch (error) {
             res.status(500).json({ message: error.message });
+        }
+    },
+
+    async markReportAsResolved(req, res) {
+        try {
+            const { reportId } = req.params;
+            const updatedReport = await artefactService.markReportAsResolved(reportId);
+            res.status(200).json({ message: 'Report marked as resolved', report: updatedReport });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    },
+
+    async deleteReport(req, res) {
+        try {
+            const { reportId } = req.params;
+            await artefactService.deleteReport(reportId);
+            res.status(200).json({ message: 'Report deleted successfully' });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
         }
     },
 }

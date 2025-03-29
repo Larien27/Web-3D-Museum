@@ -36,8 +36,8 @@ const artefactService = {
         return await artefactRepository.addReport(userId, artefactId, reason);
     },
 
-    async getAllReports() {
-        return await artefactRepository.getAllReports();
+    async getAllPendingReports() {
+        return await artefactRepository.getAllPendingReports();
     },
 
     async get3DModelsByExhibition(exhibitionId) {
@@ -48,7 +48,23 @@ const artefactService = {
             title: artefact.title,
             modelFileUrl: artefact.file_path
         }));
-    }
+    },
+
+    async markReportAsResolved(reportId) {
+        const report = await artefactRepository.markReportAsResolved(reportId);
+        if (!report) {
+            throw new Error('Report not found.');
+        }
+        return report;
+    },
+
+    async deleteReport(reportId) {
+        const report = await artefactRepository.deleteReport(reportId);
+        if (!report) {
+            throw new Error('Report not found.');
+        }
+        return report;
+    },
 };
 
 module.exports = artefactService;

@@ -21,6 +21,28 @@ function ReportsList() {
         fetchReports();
     }, []);
 
+    const handleResolved = async (reportId) => {
+        if (!window.confirm('Are you sure you want to mark this report as resolved?')) return;
+
+        try {
+            await axios.patch(`/api/artefacts/reports/${reportId}/resolve`);
+            setReports(reports.filter(report => report.id !== reportId));
+        } catch (err) {
+            setError('Failed to update report.');
+        }
+    };
+
+    const handleDelete = async (reportId) => {
+        if (!window.confirm('Are you sure you want to delete this report?')) return;
+
+        try {
+            await axios.delete(`/api/artefacts/reports/${reportId}`);
+            setReports(reports.filter(report => report.id !== reportId));
+        } catch (err) {
+            setError('Failed to delete report.');
+        }
+    };
+
     if (loading) return <p>Loading reports...</p>;
     if (error) return <p className='error'>{error}</p>;
 
@@ -42,8 +64,12 @@ function ReportsList() {
                             <td>{report.title}</td>
                             <td>{report.username}</td>
                             <td>{report.reason}</td>
-                            <td>EDIT</td>
-                            <td>ACCEPT</td>
+                            <td>
+                                <button onClick={() => handleResolved(report.id)}>MARK AS RESOLVED</button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(report.id)}>DELETE</button>
+                            </td>
                         </tr>
                     ))}
                 </table>
