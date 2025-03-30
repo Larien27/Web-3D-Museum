@@ -9,7 +9,7 @@ function ReportsList() {
     useEffect(() => {
         async function fetchReports() {
             try {
-                const response = await axios.get('/api/artefacts/reports');
+                const response = await axios.get('/api/reports/pending');
                 setReports(response.data);
             } catch (err) {
                 setError('Failed to load reports.');
@@ -25,7 +25,7 @@ function ReportsList() {
         if (!window.confirm('Are you sure you want to mark this report as resolved?')) return;
 
         try {
-            await axios.patch(`/api/artefacts/reports/${reportId}/resolve`);
+            await axios.patch(`/api/reports/${reportId}/resolve`);
             setReports(reports.filter(report => report.id !== reportId));
         } catch (err) {
             setError('Failed to update report.');
@@ -36,7 +36,7 @@ function ReportsList() {
         if (!window.confirm('Are you sure you want to delete this report?')) return;
 
         try {
-            await axios.delete(`/api/artefacts/reports/${reportId}`);
+            await axios.delete(`/api/reports/${reportId}`);
             setReports(reports.filter(report => report.id !== reportId));
         } catch (err) {
             setError('Failed to delete report.');

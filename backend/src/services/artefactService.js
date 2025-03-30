@@ -20,14 +20,6 @@ const artefactService = {
         return artefact;
     },
 
-    async addReport(userId, artefactId, reason) {
-        return await artefactRepository.addReport(userId, artefactId, reason);
-    },
-
-    async getAllPendingReports() {
-        return await artefactRepository.getAllPendingReports();
-    },
-
     async get3DModelsByExhibition(exhibitionId) {
         const artefacts = await artefactRepository.findArtefactsByExhibition(exhibitionId);
 
@@ -36,22 +28,6 @@ const artefactService = {
             title: artefact.title,
             modelFileUrl: artefact.file_path
         }));
-    },
-
-    async markReportAsResolved(reportId) {
-        const report = await artefactRepository.markReportAsResolved(reportId);
-        if (!report) {
-            throw new Error('Report not found.');
-        }
-        return report;
-    },
-
-    async deleteReport(reportId) {
-        const report = await artefactRepository.deleteReport(reportId);
-        if (!report) {
-            throw new Error('Report not found.');
-        }
-        return report;
     },
 };
 

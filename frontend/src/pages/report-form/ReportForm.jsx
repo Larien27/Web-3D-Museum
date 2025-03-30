@@ -25,7 +25,7 @@ function ReportForm() {
         }
 
         try {
-            await axios.post(`/api/artefacts/${artefactId}/report`,
+            await axios.post(`/api/reports/artefact/${artefactId}`,
                 { reason: formData.reason },
                 { headers: { Authorization: `Bearer ${user.token}` }},
             );
