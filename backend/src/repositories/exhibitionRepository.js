@@ -1,9 +1,9 @@
 const db = require('../../db');
 
 const exhibitionRepository = {
-    async createExhibition(exhibitionData) {
+    async createExhibition(exhibitionData, creatorId) {
         const { title, description } = exhibitionData;
-        const result = await db.query('INSERT INTO exhibitions (title, description) VALUES ($1, $2) RETURNING id', [title, description]);
+        const result = await db.query('INSERT INTO exhibitions (title, description, creator_id) VALUES ($1, $2, $3) RETURNING id', [title, description, creatorId]);
         return result.rows[0];
     },
 

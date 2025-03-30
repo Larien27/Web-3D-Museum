@@ -3,7 +3,8 @@ const exhibitionService = require('../services/exhibitionService');
 const exhibitionController = {
     async createExhibition(req, res) {
         try {
-            const exhibition = await exhibitionService.createExhibition(req.body);
+            const creatorId = req.user.id;
+            const exhibition = await exhibitionService.createExhibition(req.body, creatorId);
             res.status(201).json({ message: 'Exhibition created successfully.', exhibitionId: exhibition.id });
         } catch (error) {
             res.status(400).json({ message: error.message });

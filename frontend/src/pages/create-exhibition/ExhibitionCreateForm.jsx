@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 
 function ExhibitionCreateForm() {
+    const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -18,8 +20,16 @@ function ExhibitionCreateForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!user) {
+            alert('You must be logged in to create an artefact.');
+            return;
+        }
+
         try {
-            const response = await axios.post('/api/exhibitions/create', formData);
+            const response = await axios.post('/api/exhibitions/create',
+                formData,
+                { headers: { Authorization: `Bearer ${user.token}` }},
+            );
 
             if (response.status === 201) {
                 setMessage({ type: 'success', text: 'Exhibition created successfully!' });

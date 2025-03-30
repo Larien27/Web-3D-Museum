@@ -1,11 +1,11 @@
 const exhibitionRepository = require('../repositories/exhibitionRepository');
 
 const exhibitionService = {
-    async createExhibition(exhibitionData) {
+    async createExhibition(exhibitionData, creatorId) {
         if (!exhibitionData.title || !exhibitionData.description) {
             throw new Error('Exhibition title and description are required.');
         }
-        return await exhibitionRepository.createExhibition(exhibitionData);
+        return await exhibitionRepository.createExhibition(exhibitionData, creatorId);
     },
 
     async getAllExhibitions() {
