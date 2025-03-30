@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function ReportsList() {
@@ -54,14 +55,15 @@ function ReportsList() {
                 <table>
                     <tr>
                         <th>Artefact</th>
-                        <th>Exhibition</th>
+                        <th>User</th>
                         <th>Reason</th>
                         <th></th>
                         <th></th>
                     </tr>
                     {reports.map((report) => (
                         <tr key={report.id}>
-                            <td>{report.title}</td>
+                            <td>
+                                <Link to={`/artefacts/${report.artefact_id}/`}>{report.title}</Link></td>
                             <td>{report.username}</td>
                             <td>{report.reason}</td>
                             <td>
