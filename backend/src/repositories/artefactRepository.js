@@ -46,19 +46,6 @@ const artefactRepository = {
         return result.rows[0];
     },
 
-    async addFavorite(userId, artefactId) {
-        await db.query('INSERT INTO favorites (user_id, artefact_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [userId, artefactId]);
-    },
-
-    async removeFavorite(userId, artefactId) {
-        await db.query('DELETE FROM favorites WHERE user_id = $1 AND artefact_id = $2', [userId, artefactId]);
-    },
-
-    async findFavorite(userId, artefactId) {
-        const result = await db.query('SELECT 1 FROM favorites WHERE user_id = $1 AND artefact_id = $2', [userId, artefactId]);
-        return result.rowCount > 0;
-    },
-
     async addReport(userId, artefactId, reason) {
         await db.query('INSERT INTO reports (artefact_id, user_id, reason) VALUES ($1, $2, $3)', [artefactId, userId, reason]);
     },

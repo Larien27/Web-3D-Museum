@@ -20,18 +20,6 @@ const artefactService = {
         return artefact;
     },
 
-    async addFavorite(userId, artefactId) {
-        return await artefactRepository.addFavorite(userId, artefactId);
-    },
-
-    async removeFavorite(userId, artefactId) {
-        return await artefactRepository.removeFavorite(userId, artefactId);
-    },
-
-    async isFavorite(userId, artefactId) {
-        return await artefactRepository.findFavorite(userId, artefactId);
-    },
-
     async addReport(userId, artefactId, reason) {
         return await artefactRepository.addReport(userId, artefactId, reason);
     },

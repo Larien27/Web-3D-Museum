@@ -26,7 +26,7 @@ function ArtefactDetail() {
         async function checkFavorite() {
             if (!user) return;
             try {
-                const response = await axios.get(`/api/artefacts/${artefactId}/favorite`, {
+                const response = await axios.get(`/api/favorites/artefact/${artefactId}`, {
                     headers: { Authorization: `Bearer ${user.token}`}
                 });
                 setIsFavorite(response.data.isFavorite);
@@ -47,11 +47,11 @@ function ArtefactDetail() {
 
         try {
             if (isFavorite) {
-                await axios.delete(`/api/artefacts/${artefactId}/favorite`, {
+                await axios.delete(`/api/favorites/artefact/${artefactId}`, {
                     headers: { Authorization: `Bearer ${user.token}` }
                 });
             } else {
-                await axios.post(`/api/artefacts/${artefactId}/favorite`, {}, {
+                await axios.post(`/api/favorites/artefact/${artefactId}`, {}, {
                     headers: { Authorization: `Bearer ${user.token}` }
                 });
             }

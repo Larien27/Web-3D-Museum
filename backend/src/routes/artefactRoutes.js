@@ -12,9 +12,6 @@ router.get('/:exhibitionId/artefacts/3d', artefactController.get3DModelsByExhibi
 router.post('/:exhibitionId/upload', artefactController.uploadArtefact);
 router.get('/exhibition/:exhibitionId', artefactController.getArtefactsbyExhibition);
 router.get('/:artefactId', artefactController.getArtefactById);
-router.post('/:artefactId/favorite', authenticateUser, artefactController.addFavorite);
-router.get('/:artefactId/favorite', authenticateUser, artefactController.isFavorite);
-router.delete('/:artefactId/favorite', authenticateUser, artefactController.removeFavorite);
 router.post('/:artefactId/report', authenticateUser, artefactController.addReport);
 
 module.exports = router;
