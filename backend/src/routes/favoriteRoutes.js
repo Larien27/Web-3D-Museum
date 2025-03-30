@@ -4,7 +4,7 @@ const authenticateUser = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Define artefact routes
+// Define favorite routes
 router.post('/artefact/:artefactId', authenticateUser, favoriteController.addFavorite);
 router.get('/artefact/:artefactId', authenticateUser, favoriteController.isFavorite);
 router.delete('/artefact/:artefactId', authenticateUser, favoriteController.removeFavorite);
