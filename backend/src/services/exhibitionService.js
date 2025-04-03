@@ -30,6 +30,14 @@ const exhibitionService = {
         }
         return await exhibitionRepository.updateExhibition(exhibitionId, updatedData);
     },
+
+    async deleteExhibition(exhibitionId) {
+        const exhibition = await exhibitionRepository.findExhibitionById(exhibitionId);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+        return await exhibitionRepository.deleteExhibition(exhibitionId);
+    }
 };
 
 module.exports = exhibitionService;

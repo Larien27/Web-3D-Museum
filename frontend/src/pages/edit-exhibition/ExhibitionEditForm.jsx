@@ -44,6 +44,18 @@ function ExhibitionEditForm() {
         }
     }
 
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this exhibition?');
+        if (!confirmDelete) return;
+
+        try {
+            await axios.delete(`/api/exhibitions/${exhibitionId}`);
+            navigate('/exhibition-list');
+        } catch (error) {
+            setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to delete exhibition' });
+        }
+    }
+
     return(
         <div id='exhibition-edit-form'>
             <h1>Edit Exhibition</h1>
@@ -56,6 +68,7 @@ function ExhibitionEditForm() {
                 <textarea id='exhibitionDescription' name='description' value={formData.description} onChange={handleChange}></textarea>
 
                 <button type='submit'>Update</button>
+                <button type='button' onClick={handleDelete}>Delete</button>
             </form>
         </div>
     );

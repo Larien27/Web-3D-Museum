@@ -22,6 +22,10 @@ const exhibitionRepository = {
         const result = await db.query('UPDATE exhibitions SET title = $1, description = $2 WHERE id = $3 RETURNING *', [title, description, exhibitionId]);
         return result.rows[0];
     },
+
+    async deleteExhibition(exhibitionId) {
+        await db.query('DELETE FROM exhibitions WHERE id = $1', [exhibitionId]);
+    }
 };
 
 module.exports = exhibitionRepository;

@@ -9,5 +9,6 @@ router.post('/create', authenticateUser, exhibitionController.createExhibition);
 router.get('/', exhibitionController.getAllExhibitions);
 router.get('/:exhibitionId', exhibitionController.getExhibitionById);
 router.put('/:exhibitionId/edit', exhibitionController.updateExhibition);
+router.delete('/:exhibitionId', exhibitionController.deleteExhibition)
 
 module.exports = router;

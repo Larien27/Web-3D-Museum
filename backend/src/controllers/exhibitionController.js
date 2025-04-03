@@ -37,6 +37,15 @@ const exhibitionController = {
             res.status(400).json({ message: error.message });
         }
     },
+
+    async deleteExhibition(req, res) {
+        try {
+            await exhibitionService.deleteExhibition(req.params.exhibitionId);
+            res.status(200).json({ message: 'Exhibition deleted successfully'});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = exhibitionController;
