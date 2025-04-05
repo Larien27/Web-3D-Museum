@@ -1,4 +1,5 @@
 const db = require('../../db');
+const artefactRepository = require('./artefactRepository');
 
 const exhibitionRepository = {
     async createExhibition(exhibitionData, creatorId) {
@@ -24,8 +25,9 @@ const exhibitionRepository = {
     },
 
     async deleteExhibition(exhibitionId) {
+        await artefactRepository.deleteAllArtefactsByExhibition(exhibitionId);
         await db.query('DELETE FROM exhibitions WHERE id = $1', [exhibitionId]);
-    }
+    },
 };
 
 module.exports = exhibitionRepository;

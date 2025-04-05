@@ -58,6 +58,17 @@ const artefactRepository = {
         }
     },
 
+    async deleteAllArtefactsByExhibition(exhibitionId) {
+        const artefacts = await this.findArtefactsByExhibition(exhibitionId);
+        for (const artefact of artefacts) {
+            try {
+                await this.deleteArtefact(artefact);
+            } catch (err) {
+                console.error(`Failed to delete artefact with ID ${artefact.id}:`, err.message);
+            }
+        }
+    },
+
     async updateArtefact(artefactId, artefactData) {
         const { title, description, file } = artefactData;
         let fileUrl = null;
