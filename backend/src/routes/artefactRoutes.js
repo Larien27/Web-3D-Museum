@@ -9,5 +9,6 @@ router.get('/:exhibitionId/artefacts/3d', artefactController.get3DModelsByExhibi
 router.post('/:exhibitionId/upload', artefactController.uploadArtefact);
 router.get('/exhibition/:exhibitionId', artefactController.getArtefactsbyExhibition);
 router.get('/:artefactId', artefactController.getArtefactById);
+router.delete('/:artefactId', artefactController.deleteArtefact);
 
 module.exports = router;

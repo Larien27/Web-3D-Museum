@@ -55,6 +55,17 @@ const artefactController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    async deleteArtefact(req, res) {
+        const { artefactId } = req.params;
+
+        try {
+            await artefactService.deleteArtefact(artefactId);
+            res.status(200).json({ message: 'Artefact deleted successfully.' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = artefactController;

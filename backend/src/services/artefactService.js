@@ -29,6 +29,14 @@ const artefactService = {
             modelFileUrl: artefact.file_path
         }));
     },
+
+    async deleteArtefact(artefactId) {
+        const artefact = await artefactRepository.findArtefactById(artefactId);
+        if (!artefact) {
+            throw new Error('Artefact not found.');
+        }
+        await artefactRepository.deleteArtefact(artefactId, artefact.file_path);
+    }
 };
 
 module.exports = artefactService;

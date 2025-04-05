@@ -45,6 +45,16 @@ const artefactRepository = {
         const result = await db.query('SELECT * FROM artefacts WHERE id = $1', [artefactId]);
         return result.rows[0];
     },
+
+    async deleteArtefact(artefactId, filePath) {
+        try {
+            const fileName = decodeURIComponent(filePath.split('/o/')[1].split('?')[0]);
+            await bucket.file(fileName).delete();
+            await db.query('DELETE FROM artefacts WHERE id = $1', [artefactId]);
+        } catch (error) {
+            throw new Error('Failed to delete artefact.');
+        }
+    }
 };
 
 module.exports = artefactRepository;

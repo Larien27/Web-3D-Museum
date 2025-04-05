@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function ArtefactEditForm() {
@@ -10,6 +10,7 @@ function ArtefactEditForm() {
         description: '',
     });
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchArtefact() {
@@ -60,6 +61,18 @@ function ArtefactEditForm() {
         }
     };
 
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this artefact?');
+        if (!confirmDelete) return;
+
+        try {
+            await axios.delete(`/api/artefacts/${artefactId}`);
+            navigate('/exhibition-list');
+        } catch (error) {
+            setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to delete artefact' });
+        }
+    }
+
     return (
         <div>
             <h1>Edit artefact</h1>
@@ -73,6 +86,7 @@ function ArtefactEditForm() {
                 <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange}></textarea>
 
                 <button type='submit'>Update</button>
+                <button type='button' onClick={handleDelete}>Delete</button>
             </form>
         </div>
     )
