@@ -66,8 +66,9 @@ function ArtefactEditForm() {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`/api/artefacts/${artefactId}`);
-            navigate('/exhibition-list');
+            const response = await axios.delete(`/api/artefacts/${artefactId}`);
+            const { exhibitionId } = response.data;
+            navigate(`/exhibitions/${exhibitionId}`);
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to delete artefact' });
         }

@@ -35,8 +35,10 @@ const artefactService = {
         if (!artefact) {
             throw new Error('Artefact not found.');
         }
-        await artefactRepository.deleteArtefact(artefactId, artefact.file_path);
-    }
+        const exhibitionId = artefact.exhibition_id;
+        await artefactRepository.deleteArtefact(artefact);
+        return exhibitionId;
+    },
 };
 
 module.exports = artefactService;
