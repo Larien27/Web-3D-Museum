@@ -64,6 +64,25 @@ const artefactController = {
             res.status(400).json({ message: error.message });
         }
     },
+
+    updateArtefact(req, res) {
+        upload(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json({ message: 'File upload failed.' });
+            }
+
+            const { artefactId } = req.params;
+            const { title, description } = req.body;
+            const file = req.file;
+
+            try {
+                const result = await artefactService.updateArtefact(artefactId, { title, description, file });
+                res.status(200).json({ message: 'Artefact updated successfully.', fileUrl: result.fileUrl });
+            } catch (error) {
+                res.status(400).json({ message: error.message });
+            }
+        });
+    },
 }
 
 module.exports = artefactController;

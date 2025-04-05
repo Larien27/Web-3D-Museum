@@ -18,7 +18,7 @@ function ArtefactEditForm() {
                 const response = await axios.get(`/api/artefacts/${artefactId}`);
                 setArtefactData({ title: response.data.title, description: response.data.description });
             } catch (err) {
-                setError('Failed to load artefact.');
+                setMessage({ type: 'error', text: 'Failed to load artefact.' });
             }
         }
 
@@ -33,31 +33,25 @@ function ArtefactEditForm() {
         setFile(e.target.files[0]);
     }
 
-    const handleUpload = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
 
-        if (!file) {
-            setMessage({ type: 'error', text: 'Please select a file.' });
-            return;
-        }
-
         const formData = new FormData();
-        formData.append('modelFile', file);
+        if (file) formData.append('modelFile', file);
         formData.append('title', artefactData.title);
         formData.append('description', artefactData.description);
 
         try {
-            const response = await axios.post(`/api/artefacts/${exhibitionId}/upload`, formData, {
+            const response = await axios.put(`/api/artefacts/${artefactId}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            if (response.status === 201) {
-                setMessage({ type: 'success', text: 'Artefact uploaded successfully.' });
-                setFile(null);
-                setArtefactData({ title: '', description: '' });
+            if (response.status === 200) {
+                setMessage({ type: 'success', text: 'Artefact updated successfully.' });
+                navigate(`/artefacts/${artefactId}`);
             }
         } catch (error) {
-            setMessage({ type: 'error', text: 'Artefact upload failed' });
+            setMessage({ type: 'error', text: 'Artefact update failed.' });
         }
     };
 
@@ -79,12 +73,15 @@ function ArtefactEditForm() {
             <h1>Edit artefact</h1>
             {message && <p className={message.type}>{message.text}</p>}
             
-            <form onSubmit={handleUpload}>
+            <form onSubmit={handleUpdate}>
                 <label for='artefactTitle'>Title</label>
                 <input type='text' id='artefactTitle' name='title' value={artefactData.title} onChange={handleChange} />
 
                 <label for='artefactDescription'>Description</label>
                 <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange}></textarea>
+
+                <label for='fileUpload'>Replace 3D model (optional)</label>
+                <input type='file' accept='.glb,.gltf,.obj,.fbx' id='fileUpload' name='modelFile' onChange={handleFileChange} />
 
                 <button type='submit'>Update</button>
                 <button type='button' onClick={handleDelete}>Delete</button>

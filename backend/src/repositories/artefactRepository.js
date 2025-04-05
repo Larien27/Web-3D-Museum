@@ -57,6 +57,56 @@ const artefactRepository = {
             throw new Error('Failed to delete artefact.');
         }
     },
+
+    async updateArtefact(artefactId, artefactData) {
+        const { title, description, file } = artefactData;
+        let fileUrl = null;
+
+        if (file) {
+            const existingArtefact = await this.findArtefactById(artefactId);
+
+            // Delete old 3D model from Firebase
+            if (existingArtefact?.file_path) {
+                const oldFileName = decodeURIComponent(existingArtefact.file_path.split('/o/')[1].split('?')[0]);
+                try {
+                    await bucket.file(oldFileName).delete();
+                    console.log('Old file deleted from Firebase:', oldFileName);
+                } catch (err) {
+                    console.warn('Warning: Failed to delete old file from Firebase', err.message);
+                }
+            }
+
+            // Upload new 3D model to Firebase
+            const fileName = `artefacts/${Date.now()}_${existingArtefact.exhibition_id}_${file.originalname}`;
+            const fileUpload = bucket.file(fileName);
+
+            console.log('Uploading files to Firebase');
+            
+            await new Promise((resolve, reject) => {
+                const stream = fileUpload.createWriteStream({ metadata: { contentType: file.mimetype } });
+                
+                stream.on('error', (err) => {
+                    console.error('Firebase upload error: ', err);
+                    reject(err);
+                });
+                stream.on('finish', resolve);
+                stream.end(file.buffer);
+            });
+
+            console.log('Firebase upload finished');
+            fileUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fileName)}?alt=media`;
+            console.log('Firebase file URL: ', fileUrl);
+        }
+
+        // Update database
+        if (fileUrl) {
+            await db.query('UPDATE artefacts SET title = $1, description = $2, file_path = $3 WHERE id = $4', [title, description, fileUrl, artefactId]);
+        } else {
+            await db.query('UPDATE artefacts SET title = $1, description = $2 WHERE id = $3', [title, description, artefactId]);
+        }
+
+        return { artefactId, fileUrl };
+    },
 };
 
 module.exports = artefactRepository;
