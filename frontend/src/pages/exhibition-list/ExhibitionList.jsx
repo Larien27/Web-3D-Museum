@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import './ExhibitionList.scss';
 import ExhibitionBox from './ExhibitionBox';
@@ -28,7 +29,8 @@ function ExhibitionList() {
 
     return(
         <div id='exhibition-list'>
-            <h1>Current Exhibitions</h1>
+            <h1>Exhibitions</h1>
+            <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
             
                 {exhibitions.length > 0 ? (
                     <ul>
