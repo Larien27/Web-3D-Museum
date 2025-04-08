@@ -6,7 +6,7 @@ function Artefact({ artefactUrl }) {
     return(
         <Canvas
             camera={{
-                position: [0, 0, 3],
+                position: [-2, 3, 3],
                 fov: 75
             }}
         >        

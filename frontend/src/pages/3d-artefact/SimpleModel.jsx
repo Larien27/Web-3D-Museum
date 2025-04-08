@@ -32,10 +32,12 @@ function SimpleModel({ url }) {
                     return;
                 }
 
-                // Move the model above ground
-                const box = new THREE.Box3().setFromObject(loadedModel.scene || loadedModel);
-                const size = new THREE.Vector3();
-                box.getSize(size);
+                // Center the model
+                const box = new THREE.Box3().setFromObject(loadedModel);
+                const center = new THREE.Vector3();
+                box.getCenter(center);
+
+                loadedModel.position.y -= center.y;
 
             } catch (error) {
                 console.error("Failed to load model", error);
@@ -47,7 +49,7 @@ function SimpleModel({ url }) {
 
     if (!model) return null;
 
-    return <primitive object={model} position={[0, 0, 0]} />;
+    return <primitive object={model} />;
 }
 
 export default SimpleModel;
