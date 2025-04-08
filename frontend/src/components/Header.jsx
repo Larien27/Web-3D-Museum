@@ -9,24 +9,21 @@ function Header() {
     return(
         <header id='header'>
             <nav>
-                <div id='logo'>
-                    <NavLink to='/'>Logo TBA</NavLink>
-                </div>
+                <div id='logo'>3D Web Museum</div>
 
                 <ul>
                     {user ? (
                         <>
+                            <li className='colorful-button'><NavLink to='/exhibition-list'>Exhibitions</NavLink></li>
+                            <li><NavLink to='/users-table'>Users</NavLink></li>
+                            <li><NavLink to='/reports-list'>Reports</NavLink></li>
                             <li><NavLink to='/settings'>Settings</NavLink></li>
-                            <li><NavLink to='/exhibition-list'>Exhibition List</NavLink></li>
-                            <li><NavLink to='/users-table'>Manage Users</NavLink></li>
-                            <li><NavLink to='/reports-list'>Reports List</NavLink></li>
-                            <li><NavLink to='/create-exhibition'>Create Exhibition</NavLink></li>
-                            <li><button onClick={logout}>Logout</button></li>
+                            <li><button  className='nav-link-button' onClick={logout}>Log Out</button></li>
                         </>
                     ) : (
                         <>
-                            <li><NavLink to='/login'>Login</NavLink></li>
-                            <li><NavLink to='/registration'>Registration</NavLink></li>
+                            <li><NavLink to='/login'>Log In</NavLink></li>
+                            <li className='colorful-button'><NavLink to='/registration'>Sign Up</NavLink></li>
                         </>
                     )}
                 </ul>
