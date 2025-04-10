@@ -31,7 +31,7 @@ function Registration() {
 
     return(
         <div id='registration'>
-            <h1>Registration</h1>
+            <h1>Sign Up</h1>
             {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleSubmit}>
                 <label for='username'>Username</label>

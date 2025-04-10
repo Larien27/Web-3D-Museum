@@ -36,7 +36,7 @@ function Login() {
 
     return(
         <div id='login'>
-            <h1>Login</h1>
+            <h1>Log In</h1>
             {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleSubmit}>
                 <label for='email'>Email</label>
