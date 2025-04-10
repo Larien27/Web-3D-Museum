@@ -118,6 +118,20 @@ const artefactRepository = {
 
         return { artefactId, fileUrl };
     },
+
+    async saveTransformations(artefactId, transformations) {
+        let { position, rotation, scale } = transformations;
+
+        position = `{${position[0]}, ${position[1]}, ${position[2]}}`;
+        rotation = `{${rotation[0]}, ${rotation[1]}, ${rotation[2]}}`;
+        scale = `{${scale[0]}, ${scale[1]}, ${scale[2]}}`;
+
+        try {
+            await db.query('UPDATE artefacts SET position = $1, rotation = $2, scale = $3 WHERE id = $4', [position, rotation, scale, artefactId]);
+        } catch (err) {
+            throw new Error('Failed to save transformations: ' + err.message);
+        }
+    },
 };
 
 module.exports = artefactRepository;

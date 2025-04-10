@@ -10,6 +10,7 @@ router.post('/:exhibitionId/upload', artefactController.uploadArtefact);
 router.get('/exhibition/:exhibitionId', artefactController.getArtefactsbyExhibition);
 router.get('/:artefactId', artefactController.getArtefactById);
 router.delete('/:artefactId', artefactController.deleteArtefact);
+router.put('/:artefactId/save-transformations', artefactController.saveTransformations);
 router.put('/:artefactId', artefactController.updateArtefact);
 
 module.exports = router;

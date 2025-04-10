@@ -83,6 +83,18 @@ const artefactController = {
             }
         });
     },
+
+    async saveTransformations(req, res) {
+        const { artefactId } = req.params;
+        const { position, rotation, scale } = req.body;
+
+        try {
+            await artefactService.saveTransformations(artefactId, { position, rotation, scale });
+            res.status(200).json({ message: 'Transformations saved successfully.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = artefactController;

@@ -47,6 +47,11 @@ const artefactService = {
         }
         return await artefactRepository.updateArtefact(artefactId, artefactData);
     },
+
+    async saveTransformations(artefactId, transformations) {
+        const { position, rotation, scale } = transformations;
+        await artefactRepository.saveTransformations(artefactId, { position, rotation, scale });
+    },
 };
 
 module.exports = artefactService;
