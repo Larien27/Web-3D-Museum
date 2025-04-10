@@ -9,7 +9,6 @@ function Model({ url, isSelected, onSelect }) {
     const cleanUrl = useMemo(() => url.split('?')[0], [url]);
     const fileExtension = useMemo(() => cleanUrl.split('.').pop().toLowerCase(), [cleanUrl]);
     const [model, setModel] = useState(null);
-    const [position, setPosition] = useState([0, 0, 0]);
     
     useEffect(() => {
         async function loadModel() {
@@ -29,15 +28,6 @@ function Model({ url, isSelected, onSelect }) {
                     console.error(`Unsupported file type: ${fileExtension}`);
                     return;
                 }
-
-                // Move the model above ground
-                const box = new THREE.Box3().setFromObject(loadedModel.scene || loadedModel);
-                const size = new THREE.Vector3();
-                box.getSize(size);
-                const height = size.y;
-
-                setPosition([0, height / 2, Math.random() * 8 - 4]);
-
             } catch (error) {
                 console.error("Failed to load model", error);
             }
@@ -49,7 +39,10 @@ function Model({ url, isSelected, onSelect }) {
     if (!model) return null;
 
     return (
-        <group position={position} onClick={onSelect} onPointerDown={(e) => e.stopPropagation()}>
+        <group
+            onClick={onSelect}
+            onPointerDown={(e) => e.stopPropagation()}
+        >
             {model.children.map((child, index) => (
                 child.isMesh ? (
                     <mesh key={index} geometry={child.geometry} material={child.material} onPointerDown={(e) => e.stopPropagation()}>
