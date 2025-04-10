@@ -58,6 +58,7 @@ const userService = {
     },
 
     async changeUsername(currentUsername, newUsername, password) {
+        const userData = { currentUsername, newUsername, password };
         const validation = userModel.validateChangeUsername(userData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
@@ -71,6 +72,7 @@ const userService = {
     },
 
     async changeEmail(currentEmail, newEmail, password) {
+        const userData = { currentEmail, newEmail, password };
         const validation = userModel.validateChangeEmail(userData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
@@ -84,6 +86,7 @@ const userService = {
     },
 
     async changePassword(username, currentPassword, newPassword) {
+        const userData = { username, currentPassword, newPassword };
         const validation = userModel.validateChangePassword(userData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
