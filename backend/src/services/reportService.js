@@ -1,7 +1,13 @@
 const reportRepository = require('../repositories/reportRepository');
+const reportModel = require('../models/reportModel');
 
 const reportService = {
     async addReport(userId, artefactId, reason) {
+        const validation = reportModel.validateReport({ reason });
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+
         return await reportRepository.addReport(userId, artefactId, reason);
     },
 
