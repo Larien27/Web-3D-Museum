@@ -1,9 +1,12 @@
 const exhibitionRepository = require('../repositories/exhibitionRepository');
+const exhibitionModel = require('../models/exhibitionModel');
+
 
 const exhibitionService = {
     async createExhibition(exhibitionData, creatorId) {
-        if (!exhibitionData.title || !exhibitionData.description) {
-            throw new Error('Exhibition title and description are required.');
+        const validation = exhibitionModel.validateExhibition(exhibitionData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
         }
         return await exhibitionRepository.createExhibition(exhibitionData, creatorId);
     },
@@ -21,9 +24,11 @@ const exhibitionService = {
     },
 
     async updateExhibition(exhibitionId, updatedData) {
-        if (!updatedData.title || !updatedData.description) {
-            throw new Error('Exhibition title and description are required.');
+        const validation = exhibitionModel.validateExhibition(updatedData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
         }
+
         const exhibition = await exhibitionRepository.findExhibitionById(exhibitionId);
         if (!exhibition) {
             throw new Error('Exhibition not found.');
