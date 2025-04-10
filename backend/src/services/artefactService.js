@@ -26,7 +26,10 @@ const artefactService = {
         return artefacts.filter(artefact => artefact.file_path).map(artefact => ({
             id: artefact.id,
             title: artefact.title,
-            modelFileUrl: artefact.file_path
+            modelFileUrl: artefact.file_path,
+            position: artefact.position,
+            rotation: artefact.rotation,
+            scale: artefact.scale,
         }));
     },
 
