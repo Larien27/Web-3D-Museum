@@ -5,7 +5,6 @@ const userRepository = require('../repositories/userRepository');
 
 const userService = {
     async registerUser(userData) {
-    
         // Validate user input
         const validation = userModel.validateUserRegistration(userData);
         if (validation.error) {
@@ -59,6 +58,11 @@ const userService = {
     },
 
     async changeUsername(currentUsername, newUsername, password) {
+        const validation = userModel.validateChangeUsername(userData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+
         const user = await userRepository.findByUsername(currentUsername);
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new Error('Invalid credentials.');
@@ -67,6 +71,11 @@ const userService = {
     },
 
     async changeEmail(currentEmail, newEmail, password) {
+        const validation = userModel.validateChangeEmail(userData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+
         const user = await userRepository.findByEmail(currentEmail);
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new Error('Invalid credentials.');
@@ -75,6 +84,11 @@ const userService = {
     },
 
     async changePassword(username, currentPassword, newPassword) {
+        const validation = userModel.validateChangePassword(userData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+
         const user = await userRepository.findByUsername(username);
         if (!user || !(await bcrypt.compare(currentPassword, user.password))) {
             throw new Error('Invalid credentials.');
