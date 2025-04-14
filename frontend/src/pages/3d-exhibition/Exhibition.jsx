@@ -54,7 +54,18 @@ function Exhibition() {
             <Walls dimensions={roomDimensions} />
 
             {models.map((model) => (
-                <Model key={model.id} url={model.modelFileUrl} isSelected={selectedModelId === model.id} onSelect={() => handleSelectModel(model.id)} />
+                <group
+                    position={model.position ?? [0, 0, 0]}
+                    rotation={model.rotation ?? [0, 0, 0]}
+                    scale={model.scale ?? [1, 1, 1]}
+                >
+                    <Model
+                        key={model.id}
+                        url={model.modelFileUrl}
+                        isSelected={selectedModelId === model.id}
+                        onSelect={() => handleSelectModel(model.id)}
+                    />
+                </group>
             ))}
 
             <OrbitControls />
