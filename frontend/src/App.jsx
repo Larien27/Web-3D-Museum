@@ -9,6 +9,7 @@ import UsersTable from './pages/users-table/UsersTable';
 import ReportsList from './pages/reports-list/ReportsList';
 import ExhibitionCreateForm from './pages/create-exhibition/ExhibitionCreateForm';
 import ExhibitionEditForm from './pages/edit-exhibition/ExhibitionEditForm';
+import ExhibitionSceneEditor from './pages/exhibition-scene-editor/ExhibitionSceneEditor';
 import ArtefactUploadForm from './pages/create-artefact/ArtefactUploadForm';
 import ArtefactEditForm from './pages/edit-artefact/ArtefactEditForm';
 import ExhibitionDetail from './pages/exhibition-detail/ExhibitionDetail';
@@ -35,8 +36,9 @@ function App() {
                         <Route path='/reports-list' element={<ReportsList />}/>
                         <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
                         <Route path='/exhibitions/:exhibitionId/edit' element={<ExhibitionEditForm />}/>
+                        <Route path='/exhibitions/:exhibitionId/scene-editor' element={<ExhibitionSceneEditor />}/>
                         <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
-                        <Route path='/exhibitions/3d/:exhibitionId' element={<Exhibition />} />
+                        <Route path='/exhibitions/:exhibitionId/3d' element={<Exhibition />} />
                         <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
                         <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
                         <Route path='/artefacts/:artefactId/edit' element={<ArtefactEditForm />} />

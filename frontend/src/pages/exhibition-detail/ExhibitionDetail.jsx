@@ -56,8 +56,8 @@ function ExhibitionDetail() {
 
             <Link to={`/artefacts/${exhibitionId}/create-artefact`}>Add Artefact</Link>
             <Link to={`/exhibitions/${exhibitionId}/edit`}>Edit</Link>
-
-            <Link to={`/exhibitions/3d/${exhibitionId}`}>
+            <Link to={`/exhibitions/${exhibitionId}/scene-editor`}>Exhibition Editor</Link>
+            <Link to={`/exhibitions/${exhibitionId}/3d`}>
                 <button>View 3D Exhibition</button>
             </Link>
         </div>
