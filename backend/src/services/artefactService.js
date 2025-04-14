@@ -1,9 +1,15 @@
 const artefactRepository = require('../repositories/artefactRepository');
+const artefactModel = require('../models/artefactModel');
 
 const artefactService = {
     async uploadArtefact(exhibitionId, artefactData) {
-        if (!artefactData.title || !artefactData.file) {
-            throw new Error('Artefact title and file are required.');
+        const validation = artefactModel.validateArtefact(artefactData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+        const fileValidation = artefactModel.validateFile(artefactData.file);
+        if (fileValidation.error) {
+            throw new Error(fileValidation.error.details[0].message);
         }
         return await artefactRepository.addArtefact(exhibitionId, artefactData);
     },
@@ -44,6 +50,16 @@ const artefactService = {
     },
 
     async updateArtefact(artefactId, artefactData) {
+        const validation = artefactModel.validateArtefact(artefactData);
+        if (validation.error) {
+            throw new Error(validation.error.details[0].message);
+        }
+        if (artefactData.file) {
+            const fileValidation = artefactModel.validateFile(artefactData.file);
+            if (fileValidation.error) {
+                throw new Error(fileValidation.error.details[0].message);
+            }
+        }
         const artefact = await artefactRepository.findArtefactById(artefactId);
         if (!artefact) {
             throw new Error('Artefact not found.');
