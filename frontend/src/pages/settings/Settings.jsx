@@ -55,6 +55,17 @@ function Settings() {
             
             if (response.status === 200) {
                 setMessage({ type: 'success', text: 'Update was successful!' });
+                setFormData({
+                    currentUsername: '',
+                    newUsername: '',
+                    passwordForUsername: '',
+                    currentEmail: '',
+                    newEmail: '',
+                    passwordForEmail: '',
+                    usernameForPassword: '',
+                    currentPassword: '',
+                    newPassword: '',
+                })
             }
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Update failed' });
