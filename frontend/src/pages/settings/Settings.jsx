@@ -1,7 +1,9 @@
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 
 function Settings() {
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         currentUsername: '',
         newUsername: '',
@@ -14,15 +16,12 @@ function Settings() {
         newPassword: '',
     });
 
-    const [message, setMessage] = useState(null);
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleSubmit = async (e, type) => {
         e.preventDefault();
-        setMessage(null);
 
         let endpoint = '';
         let data = {};
@@ -54,7 +53,7 @@ function Settings() {
             const response = await axios.post(endpoint, data);
             
             if (response.status === 200) {
-                setMessage({ type: 'success', text: 'Update was successful!' });
+                showToast('success', 'Update was successful!');
                 setFormData({
                     currentUsername: '',
                     newUsername: '',
@@ -68,14 +67,13 @@ function Settings() {
                 })
             }
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Update failed' });
+            showToast('error', error.response?.data?.message || 'Update failed');
         }
     }
 
     return(
         <div id='settings'>
             <h1>Settings</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             
             <h2>Change username</h2>
             <form onSubmit={(e) => handleSubmit(e, 'username')}>
