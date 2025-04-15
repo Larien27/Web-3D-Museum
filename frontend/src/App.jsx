@@ -17,35 +17,38 @@ import ArtefactDetail from './pages/artefact-detail/ArtefactDetail';
 import ReportForm from './pages/report-form/ReportForm';
 
 import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
     return(
         <AuthProvider>
-            <Router>
-                <Header />
-                <Routes>
-                    <Route path='/login' element={<Login />}/>
-                    <Route path='/registration' element={<Registration />}/>
+            <ToastProvider>
+                <Router>
+                    <Header />
+                    <Routes>
+                        <Route path='/login' element={<Login />}/>
+                        <Route path='/registration' element={<Registration />}/>
 
-                    <Route element={<ProtectedRoute />}>
-                        <Route path='/exhibition-list' element={<ExhibitionList />}/>
-                        <Route path='/settings' element={<Settings />}/>
-                        <Route path='/users-table' element={<UsersTable />}/>
-                        <Route path='/reports-list' element={<ReportsList />}/>
-                        <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
-                        <Route path='/exhibitions/:exhibitionId/edit' element={<ExhibitionEditForm />}/>
-                        <Route path='/exhibitions/:exhibitionId/scene-editor' element={<ExhibitionSceneEditor />}/>
-                        <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
-                        <Route path='/exhibitions/:exhibitionId/3d' element={<Exhibition />} />
-                        <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
-                        <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
-                        <Route path='/artefacts/:artefactId/edit' element={<ArtefactEditForm />} />
-                        <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
-                    </Route>
-                </Routes>
-            </Router>
+                        <Route element={<ProtectedRoute />}>
+                            <Route path='/exhibition-list' element={<ExhibitionList />}/>
+                            <Route path='/settings' element={<Settings />}/>
+                            <Route path='/users-table' element={<UsersTable />}/>
+                            <Route path='/reports-list' element={<ReportsList />}/>
+                            <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
+                            <Route path='/exhibitions/:exhibitionId/edit' element={<ExhibitionEditForm />}/>
+                            <Route path='/exhibitions/:exhibitionId/scene-editor' element={<ExhibitionSceneEditor />}/>
+                            <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
+                            <Route path='/exhibitions/:exhibitionId/3d' element={<Exhibition />} />
+                            <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
+                            <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
+                            <Route path='/artefacts/:artefactId/edit' element={<ArtefactEditForm />} />
+                            <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
+                        </Route>
+                    </Routes>
+                </Router>
+            </ToastProvider>
         </AuthProvider>
         
     );
