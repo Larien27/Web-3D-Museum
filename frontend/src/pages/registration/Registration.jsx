@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Registration.scss';
 
 function Registration() {
@@ -8,8 +9,8 @@ function Registration() {
         email: '',
         password: '',
     });
-
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +24,7 @@ function Registration() {
 
             if (response.status === 201) {
                 setMessage({ type: 'success', text: 'Registration successful!'});
+                navigate('/login');
             }
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Registration failed' });
