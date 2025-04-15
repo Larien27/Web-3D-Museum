@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import './Registration.scss';
 
 function Registration() {
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
     });
-    const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,18 +24,17 @@ function Registration() {
             const response = await axios.post('/api/users/register', formData);
 
             if (response.status === 201) {
-                setMessage({ type: 'success', text: 'Registration successful!'});
+                showToast('success', 'Registration successful!');
                 navigate('/login');
             }
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Registration failed' });
+            showToast('error', error.response?.data?.message || 'Registration failed');
         }
     }
 
     return(
         <div id='registration'>
             <h1>Sign Up</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleSubmit}>
                 <label for='username'>Username</label>
                 <input type='text' id='username' name='username' value={formData.username} onChange={handleChange} />

@@ -2,15 +2,16 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import './Login.scss';
 
 function Login() {
     const { login } = useContext(AuthContext);
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-    const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -24,20 +25,19 @@ function Login() {
             const response = await axios.post('/api/users/login', formData);
 
             if (response.status === 200) {
-                setMessage({ type: 'success', text: 'Login successful!'});
+                showToast('success', 'Login successful!');
                 const token = response.data.token;
                 login(token);
                 navigate('/exhibition-list');
             }
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Login failed' });
+            showToast('error', error.response?.data?.message || 'Login failed');
         }
     }
 
     return(
         <div id='login'>
             <h1>Log In</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleSubmit}>
                 <label for='email'>Email</label>
                 <input type='text' id='email' name='email' value={formData.email} onChange={handleChange} />
