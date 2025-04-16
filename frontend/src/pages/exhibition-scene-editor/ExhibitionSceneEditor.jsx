@@ -17,7 +17,6 @@ function ExhibitionSceneEditor() {
         async function fetchModels() {
             try {
                 const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`);
-                console.log('Models:', response.data);
                 setModels(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load 3D models.');
