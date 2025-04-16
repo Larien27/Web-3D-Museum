@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -10,6 +11,7 @@ import Walls from './Walls';
 import Model from './Model';
 
 function Exhibition() {
+    const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [models, setModels] = useState([]);
     const [selectedModelId, setSelectedModelId] = useState(null);
@@ -20,7 +22,7 @@ function Exhibition() {
                 const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`);
                 setModels(response.data);
             } catch (err) {
-                console.error('Failed to load 3D models.');
+                showToast('error', 'Failed to load 3D models.');
             }
         }
 

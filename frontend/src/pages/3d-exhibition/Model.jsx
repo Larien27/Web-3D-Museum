@@ -3,9 +3,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { Outlines } from '@react-three/drei';
-import * as THREE from 'three';
+import { useToast } from '../../context/ToastContext';
 
 function Model({ url, isSelected, onSelect }) {
+    const { showToast } = useToast();
     const cleanUrl = useMemo(() => url.split('?')[0], [url]);
     const fileExtension = useMemo(() => cleanUrl.split('.').pop().toLowerCase(), [cleanUrl]);
     const [model, setModel] = useState(null);
@@ -25,11 +26,11 @@ function Model({ url, isSelected, onSelect }) {
                     loadedModel = await new FBXLoader().loadAsync(url);
                     setModel(loadedModel);
                 } else {
-                    console.error(`Unsupported file type: ${fileExtension}`);
+                    showToast('error', `Unsupported file type: ${fileExtension}`);
                     return;
                 }
-            } catch (error) {
-                console.error("Failed to load model", error);
+            } catch (err) {
+                showToast('error', 'Failed to load model');
             }
         }
 
