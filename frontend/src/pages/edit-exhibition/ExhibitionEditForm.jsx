@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 
 function ExhibitionEditForm() {
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
     });
     const { exhibitionId } = useParams();
-    const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,7 +18,7 @@ function ExhibitionEditForm() {
                 const response = await axios.get(`/api/exhibitions/${exhibitionId}`);
                 setFormData({ title: response.data.title, description: response.data.description });
             } catch (err) {
-                console.error('Failed to load exhibition.');
+                showToast('error', 'Failed to load exhibition.');
             }
         }
 
@@ -35,12 +36,12 @@ function ExhibitionEditForm() {
             const response = await axios.put(`/api/exhibitions/${exhibitionId}/edit`, formData);
 
             if (response.status === 200) {
-                setMessage({ type: 'success', text: 'Exhibition updated successfully!' });
+                showToast('success', 'Exhibition updated successfully!');
                 navigate(`/exhibitions/${exhibitionId}`);
             }
 
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Exhibition update failed' });
+            showToast('error', error.response?.data?.message || 'Exhibition update failed');
         }
     }
 
@@ -50,16 +51,16 @@ function ExhibitionEditForm() {
 
         try {
             await axios.delete(`/api/exhibitions/${exhibitionId}`);
+            showToast('success', 'Exhibition deleted successfully!');
             navigate('/exhibition-list');
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to delete exhibition' });
+            showToast('error', error.response?.data?.message || 'Failed to delete exhibition');
         }
     }
 
     return(
         <div id='exhibition-edit-form'>
             <h1>Edit Exhibition</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleSubmit}>
                 <label for='title'>Title</label>
                 <input type='text' id='exhibitionTitle' name='title' value={formData.title} onChange={handleChange} />

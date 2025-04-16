@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ArtefactEditForm() {
+    const { showToast } = useToast();
     const { artefactId } = useParams();
     const [file, setFile] = useState(null);
     const [artefactData, setArtefactData] = useState({
         title: '',
         description: '',
     });
-    const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,7 +19,7 @@ function ArtefactEditForm() {
                 const response = await axios.get(`/api/artefacts/${artefactId}`);
                 setArtefactData({ title: response.data.title, description: response.data.description });
             } catch (err) {
-                setMessage({ type: 'error', text: 'Failed to load artefact.' });
+                showToast('error', 'Failed to load artefact.');
             }
         }
 
@@ -47,11 +48,11 @@ function ArtefactEditForm() {
             });
 
             if (response.status === 200) {
-                setMessage({ type: 'success', text: 'Artefact updated successfully.' });
+                showToast('success', 'Artefact updated successfully.');
                 navigate(`/artefacts/${artefactId}`);
             }
         } catch (error) {
-            setMessage({ type: 'error', text: 'Artefact update failed.' });
+            showToast('error', 'Artefact update failed.');
         }
     };
 
@@ -62,16 +63,16 @@ function ArtefactEditForm() {
         try {
             const response = await axios.delete(`/api/artefacts/${artefactId}`);
             const { exhibitionId } = response.data;
+            showToast('success', 'Artefact deleted successfully.');
             navigate(`/exhibitions/${exhibitionId}`);
         } catch (error) {
-            setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to delete artefact' });
+            showToast('error', error.response?.data?.message || 'Failed to delete artefact');
         }
     }
 
     return (
         <div>
             <h1>Edit artefact</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             
             <form onSubmit={handleUpdate}>
                 <label for='artefactTitle'>Title</label>

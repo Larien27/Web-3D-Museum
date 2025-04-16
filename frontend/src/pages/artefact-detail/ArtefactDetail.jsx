@@ -2,14 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import Artefact from '../3d-artefact/Artefact';
 import './ArtefactDetail.scss';
 
 function ArtefactDetail() {
-    const { artefactId } = useParams();
     const { user } = useContext(AuthContext);
+    const { showToast } = useToast();
+    const { artefactId } = useParams();
     const [artefact, setArtefact] = useState(null);
-    const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ function ArtefactDetail() {
                 const response = await axios.get(`/api/artefacts/${artefactId}`);
                 setArtefact(response.data);
             } catch (err) {
-                setError('Failed to load artefact.');
+                showToast('error', 'Failed to load artefact.');
             }
         }
 
@@ -31,7 +32,7 @@ function ArtefactDetail() {
                 });
                 setIsFavorite(response.data.isFavorite);
             } catch (err) {
-                setError('Error checking favorite.')
+                showToast('error', 'Error checking favorite.');
             }
         }
 
@@ -41,7 +42,7 @@ function ArtefactDetail() {
 
     async function toggleFavorite() {
         if (!user) {
-            alert('You must be logged in to add favorites.');
+            showToast('error', 'You must be logged in to add favorites.');
             return;
         }
 
@@ -57,7 +58,7 @@ function ArtefactDetail() {
             }
             setIsFavorite(!isFavorite);
         } catch (err) {
-            setError('Error toggling favorite.');
+            showToast('error', 'Error toggling favorite.');
         }
     }
 
@@ -65,7 +66,6 @@ function ArtefactDetail() {
         navigate(`/artefacts/${artefactId}/report-form`);
     };
 
-    if (error) return <p className='error'>{error}</p>;
     if (!artefact) return <p>Loading</p>;
 
     return(

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ArtefactUploadForm() {
+    const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [file, setFile] = useState(null);
     const [artefactData, setArtefactData] = useState({
         title: '',
         description: '',
     });
-    const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -24,7 +25,7 @@ function ArtefactUploadForm() {
         e.preventDefault();
 
         if (!file) {
-            setMessage({ type: 'error', text: 'Please select a file.' });
+            showToast('error', 'Please select a file.');
             return;
         }
 
@@ -40,20 +41,19 @@ function ArtefactUploadForm() {
 
             if (response.status === 201) {
                 const { artefactId } = response.data;
-                setMessage({ type: 'success', text: 'Artefact uploaded successfully.' });
+                showToast('success', 'Artefact uploaded successfully.');
                 setFile(null);
                 setArtefactData({ title: '', description: '' });
                 navigate(`/artefacts/${artefactId}`);
             }
         } catch (error) {
-            setMessage({ type: 'error', text: 'Artefact upload failed' });
+            showToast('error', 'Artefact upload failed');
         }
     };
 
     return (
         <div>
             <h1>New artefact</h1>
-            {message && <p className={message.type}>{message.text}</p>}
             
             <form onSubmit={handleUpload}>
                 <label for='artefactTitle'>Title</label>
