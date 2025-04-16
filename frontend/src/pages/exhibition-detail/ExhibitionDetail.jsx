@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function ExhibitionDetail() {
+    const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [exhibition, setExhibition] = useState(null);
     const [artefacts, setArtefacts] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchExhibition() {
@@ -15,7 +15,7 @@ function ExhibitionDetail() {
                 const response = await axios.get(`/api/exhibitions/${exhibitionId}`);
                 setExhibition(response.data);
             } catch (err) {
-                setError('Failed to load exhibition.');
+                showToast('error', 'Failed to load exhibition.');
             }
         }
 
@@ -24,7 +24,7 @@ function ExhibitionDetail() {
                 const response = await axios.get(`/api/artefacts/exhibition/${exhibitionId}`);
                 setArtefacts(response.data);
             } catch (err) {
-                setError('Failed to load exhibition.');
+                showToast('error', 'Failed to load exhibition artefacts.');
             }
         }
 
@@ -33,7 +33,6 @@ function ExhibitionDetail() {
 
     }, [exhibitionId]);
 
-    if (error) return <p className='error'>{error}</p>;
     if (!exhibition) return <p>Loading</p>;
 
     return(

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import SceneContent from './SceneContent';
 
 
 function ExhibitionSceneEditor() {
+    const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [models, setModels] = useState([]);
     const [selectedModelId, setSelectedModelId] = useState(null);
@@ -18,7 +20,7 @@ function ExhibitionSceneEditor() {
                 console.log('Models:', response.data);
                 setModels(response.data);
             } catch (err) {
-                console.error('Failed to load 3D models.', err);
+                showToast('error', 'Failed to load 3D models.');
             }
         }
 
@@ -39,7 +41,6 @@ function ExhibitionSceneEditor() {
             };
         }).filter(Boolean);
 
-        console.log('Saving scene data:', sceneData);
         try {
             for (const modelData of sceneData) {
                 await axios.put(`/api/artefacts/${modelData.id}/save-transformations`, {
@@ -48,9 +49,9 @@ function ExhibitionSceneEditor() {
                     scale: modelData.scale,
                 });
             }
-            console.log('Scene data saved successfully!');
-        } catch (error) {
-            console.error('Error saving scene data:', error);
+            showToast('success', 'Scene saved successfully!');
+        } catch (err) {
+            showToast('error', 'Error saving the scene.');
         }
     };
 

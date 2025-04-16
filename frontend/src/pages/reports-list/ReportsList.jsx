@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ReportsList() {
+    const { showToast } = useToast();
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchReports() {
@@ -13,7 +14,7 @@ function ReportsList() {
                 const response = await axios.get('/api/reports/pending');
                 setReports(response.data);
             } catch (err) {
-                setError('Failed to load reports.');
+                showToast('error', 'Failed to load reports.');
             } finally {
                 setLoading(false);
             }
@@ -23,29 +24,36 @@ function ReportsList() {
     }, []);
 
     const handleResolved = async (reportId) => {
-        if (!window.confirm('Are you sure you want to mark this report as resolved?')) return;
+        if (!window.confirm('Are you sure you want to mark this report as resolved?')){
+            showToast('info', 'Report resolution was cancelled.');
+            return;
+        };
 
         try {
             await axios.patch(`/api/reports/${reportId}/resolve`);
             setReports(reports.filter(report => report.id !== reportId));
+            showToast('success', 'Report marked as resolved!');
         } catch (err) {
-            setError('Failed to update report.');
+            showToast('error', 'Failed to update report.');
         }
     };
 
     const handleDelete = async (reportId) => {
-        if (!window.confirm('Are you sure you want to delete this report?')) return;
+        if (!window.confirm('Are you sure you want to delete this report?')){
+            showToast('info', 'Report deletion was cancelled.');
+            return;
+        };
 
         try {
             await axios.delete(`/api/reports/${reportId}`);
             setReports(reports.filter(report => report.id !== reportId));
+            showToast('success', 'Report deleted successfully!');
         } catch (err) {
-            setError('Failed to delete report.');
+            showToast('error', 'Failed to delete report.');
         }
     };
 
     if (loading) return <p>Loading reports...</p>;
-    if (error) return <p className='error'>{error}</p>;
 
     return(
         <div id='reports-list'>

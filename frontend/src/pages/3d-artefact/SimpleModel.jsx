@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { useToast } from '../../context/ToastContext';
 import * as THREE from 'three';
 
 function SimpleModel({ url }) {
-
+    const { showToast } = useToast();
     const [model, setModel] = useState(null);
     
     useEffect(() => {
@@ -28,7 +29,7 @@ function SimpleModel({ url }) {
                     loadedModel = await new FBXLoader().loadAsync(url);
                     setModel(loadedModel);
                 } else {
-                    console.error(`Unsupported file type: ${fileExtension}`);
+                    showToast('error', `Unsupported file type: ${fileExtension}`);
                     return;
                 }
 
@@ -39,8 +40,8 @@ function SimpleModel({ url }) {
 
                 loadedModel.position.y -= center.y;
 
-            } catch (error) {
-                console.error("Failed to load model", error);
+            } catch (err) {
+                showToast('error', 'Failed to load model');
             }
         }
 

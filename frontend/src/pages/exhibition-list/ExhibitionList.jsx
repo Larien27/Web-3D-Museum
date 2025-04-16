@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import './ExhibitionList.scss';
 import ExhibitionBox from './ExhibitionBox';
 
 function ExhibitionList() {
+    const { showToast } = useToast();
     const [exhibitions, setExhibitions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchExhibitions() {
@@ -15,7 +16,7 @@ function ExhibitionList() {
                 const response = await axios.get('/api/exhibitions');
                 setExhibitions(response.data);
             } catch (err) {
-                setError('Failed to load exhibitions.');
+                showToast('error', 'Failed to load exhibitions.');
             } finally {
                 setLoading(false);
             }
@@ -25,7 +26,6 @@ function ExhibitionList() {
     }, []);
 
     if (loading) return <p>Loading exhibitions...</p>;
-    if (error) return <p className='error'>{error}</p>;
 
     return(
         <div id='exhibition-list'>

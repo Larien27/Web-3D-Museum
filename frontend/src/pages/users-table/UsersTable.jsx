@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function UsersTable() {
+    const { showToast } = useToast();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchUsers() {
@@ -12,7 +13,7 @@ function UsersTable() {
                 const response = await axios.get('/api/users');
                 setUsers(response.data);
             } catch (err) {
-                setError('Failed to load users.');
+                showToast('error', 'Failed to load users.');
             } finally {
                 setLoading(false);
             }
@@ -25,40 +26,44 @@ function UsersTable() {
         try {
             await axios.put('/api/users/update-role', { userId, newRole });
             setUsers(users.map(user => user.id === userId ? { ...user, role: newRole } : user));
+            showToast('success', 'Role updated successfully!');
         } catch (err) {
-            setError('Failed to update role.');
+            showToast('error', 'Failed to update role.');
         }
     };
 
     const handleResetPassword = async (userId) => {
         const tempPassword = prompt('Enter a temporary password for the user:');
 
-        if (!tempPassword) {
-            alert("Password reset was cancelled.");
+        if (!tempPassword){
+            showToast('info', 'Password reset was cancelled.');
             return;
         }
 
         try {
             await axios.put('/api/users/reset-password', { userId, tempPassword });
-            alert('Password reset successfully!');
+            showToast('success', 'Password reset successfully!');
         } catch (err) {
-            alert('Failed to reset password.');
+            showToast('error', 'Failed to reset password.');
         }
     };
 
     const handleDelete = async (userId) => {
-        if (!window.confirm('Are you sure you want to delete this user?')) return;
+        if (!window.confirm('Are you sure you want to delete this user?')){
+            showToast('info', 'User deletion was cancelled.');
+            return;
+        };
 
         try {
             await axios.delete(`/api/users/${userId}`);
             setUsers(users.filter(user => user.id !== userId));
+            showToast('success', 'User deleted successfully!');
         } catch (err) {
-            setError('Failed to delete user.');
+            showToast('error', 'Failed to delete user.');
         }
     };
 
     if (loading) return <p>Loading users...</p>;
-    if (error) return <p className='error'>{error}</p>;
 
     return(
         <div id='users-table'>
