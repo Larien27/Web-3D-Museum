@@ -53,7 +53,7 @@ const userService = {
         if (!isMatch) throw new Error('Invalid email or password.');
 
         // Generate a JWT token
-        const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         return token;
     },
 
