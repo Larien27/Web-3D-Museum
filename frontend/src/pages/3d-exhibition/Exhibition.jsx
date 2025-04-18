@@ -43,6 +43,7 @@ function Exhibition() {
     }
 
     return(
+        <div id='exhibition'>
         <Canvas
             camera={{
                 position: [3, 2, 5],
@@ -72,6 +73,7 @@ function Exhibition() {
 
             <OrbitControls />
         </Canvas>
+        </div>
     );
 }
 
