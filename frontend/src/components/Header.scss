@@ -32,37 +32,6 @@
     
             li {
                 font-size: 16px;
-
-                &.colorful-button {
-                    height: 36px;
-                    padding: 0 20px;
-                    border: 3px solid transparent;
-                    border-radius: 30px;
-                    background: linear-gradient(to right, #00C9DB, #FF00FF);
-                    background-clip: padding-box;
-                    font-family: 'Inter', sans-serif;
-                    color: white;
-                    font-weight: 600;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    a {
-                        font-weight: 600;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-
-                        &:hover {
-                            color: white;
-                        }
-                    }
-
-                    &:hover {
-                        border: 3px solid white;
-                        cursor: pointer;
-                    }
-                }
     
                 a {
                     text-decoration: none;

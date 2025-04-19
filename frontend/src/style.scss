@@ -3,6 +3,11 @@ body,
 #root {
     height: 100%;
     margin: 0;
+    background: linear-gradient(to bottom, #010030 0%, #160078 80%, #010030 100%);
+}
+
+#root > div {
+  padding: 10vh 10vw;
 }
 
 * {
@@ -10,11 +15,60 @@ body,
   font-weight: 400;
 }
 
+a, p, h1, h2, h3, h4, h5, h6, label {
+  color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.colorful-button {
+  height: 36px;
+  max-width: 200px;
+  padding: 0 20px;
+  border: 3px solid transparent;
+  border-radius: 30px;
+  background: linear-gradient(to right, #00C9DB, #FF00FF);
+  background-clip: padding-box;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+      font-weight: 600;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+          color: white !important;
+      }
+  }
+
+  &:hover {
+      border: 3px solid white;
+      cursor: pointer;
+  }
+}
+
 .toast {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 12px 20px;
+  padding: 12px 20px !important;
   border-radius: 8px;
   color: white;
   font-weight: 500;
