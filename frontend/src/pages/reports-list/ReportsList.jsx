@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ReportsList() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,7 +13,9 @@ function ReportsList() {
     useEffect(() => {
         async function fetchReports() {
             try {
-                const response = await axios.get('/api/reports/pending');
+                const response = await axios.get('/api/reports/pending', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setReports(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load reports.');
@@ -30,7 +34,9 @@ function ReportsList() {
         };
 
         try {
-            await axios.patch(`/api/reports/${reportId}/resolve`);
+            await axios.patch(`/api/reports/${reportId}/resolve`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             setReports(reports.filter(report => report.id !== reportId));
             showToast('success', 'Report marked as resolved!');
         } catch (err) {
@@ -45,7 +51,9 @@ function ReportsList() {
         };
 
         try {
-            await axios.delete(`/api/reports/${reportId}`);
+            await axios.delete(`/api/reports/${reportId}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             setReports(reports.filter(report => report.id !== reportId));
             showToast('success', 'Report deleted successfully!');
         } catch (err) {
