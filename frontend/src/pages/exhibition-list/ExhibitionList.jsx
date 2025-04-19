@@ -30,7 +30,9 @@ function ExhibitionList() {
     return(
         <div id='exhibition-list'>
             <h1>Exhibitions</h1>
+            <span className='colorful-button'>
             <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
+            </span>
             
                 {exhibitions.length > 0 ? (
                     <ul>
@@ -41,6 +43,8 @@ function ExhibitionList() {
                                 title={exhibition.title}
                                 description={exhibition.description}
                                 imageUrl={exhibition.imageUrl || 'https://place-hold.it/300x250'}
+                                user={user}
+                                exhibitorId={exhibition.creator_id}
                             />
                         </li>
                     ))}

@@ -1,7 +1,18 @@
 .exhibition-box {
-    border: 2px solid black;
+    padding: 10px;
+    background-color: #2F2424;
+    border: 5px solid;
+    border-image: linear-gradient(to top, #00C9DB, #FF00FF) 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: white;
+
+    img {
+        width: 100%;
+        height: auto;
+        max-height: 270px;
+        object-fit: cover;
+    }
 }
