@@ -1,10 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import SimpleModel from './SimpleModel';
+import './Artefact.scss';
 
 function Artefact({ artefactUrl }) {
     return(
         <Canvas
+            id='artefact-canvas'
             camera={{
                 position: [-2, 3, 3],
                 fov: 75
