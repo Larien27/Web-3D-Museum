@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function UsersTable() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,7 +14,9 @@ function UsersTable() {
 
         async function fetchUsers() {
             try {
-                const response = await axios.get('/api/users');
+                const response = await axios.get('/api/users', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setUsers(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load users.');
@@ -22,11 +26,13 @@ function UsersTable() {
         }
 
         fetchUsers();
-    }, []);
+    }, [user]);
 
     const handleRoleChange = async (userId, newRole) => {
         try {
-            await axios.put('/api/users/update-role', { userId, newRole });
+            await axios.put('/api/users/update-role', { userId, newRole }, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             setUsers(users.map(user => user.id === userId ? { ...user, role: newRole } : user));
             showToast('success', 'Role updated successfully!');
         } catch (err) {
@@ -43,7 +49,9 @@ function UsersTable() {
         }
 
         try {
-            await axios.put('/api/users/reset-password', { userId, tempPassword });
+            await axios.put('/api/users/reset-password', { userId, tempPassword }, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             showToast('success', 'Password reset successfully!');
         } catch (err) {
             showToast('error', 'Failed to reset password.');
@@ -57,7 +65,9 @@ function UsersTable() {
         };
 
         try {
-            await axios.delete(`/api/users/${userId}`);
+            await axios.delete(`/api/users/${userId}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             setUsers(users.filter(user => user.id !== userId));
             showToast('success', 'User deleted successfully!');
         } catch (err) {

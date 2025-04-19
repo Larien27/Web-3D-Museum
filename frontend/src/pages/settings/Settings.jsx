@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 
 function Settings() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [formData, setFormData] = useState({
         currentUsername: '',
@@ -50,7 +52,9 @@ function Settings() {
         }
 
         try {
-            const response = await axios.post(endpoint, data);
+            const response = await axios.post(endpoint, data, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             
             if (response.status === 200) {
                 showToast('success', 'Update was successful!');
