@@ -17,7 +17,9 @@ function ArtefactDetail() {
     useEffect(() => {
         async function fetchArtefact() {
             try {
-                const response = await axios.get(`/api/artefacts/${artefactId}`);
+                const response = await axios.get(`/api/artefacts/${artefactId}`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setArtefact(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load artefact.');
