@@ -11,7 +11,11 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('token');
         if (token) {
             const decoded = jwtDecode(token);
-            setUser({ token, role: decoded.role });
+            setUser({
+                token,
+                role: decoded.role, 
+                id: decoded.id,
+            });
         }
         setLoading(false);
     }, []);
@@ -19,7 +23,11 @@ export const AuthProvider = ({ children }) => {
     const login = (token) => {
         const decoded = jwtDecode(token);
         localStorage.setItem('token', token);
-        setUser({ token, role: decoded.role });
+        setUser({
+            token,
+            role: decoded.role,
+            id: decoded.id,
+        });
     };
 
     const logout = () => {
