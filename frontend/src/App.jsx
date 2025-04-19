@@ -31,20 +31,26 @@ function App() {
                         <Route path='/login' element={<Login />}/>
                         <Route path='/registration' element={<Registration />}/>
 
-                        <Route element={<ProtectedRoute />}>
+                        <Route element={<ProtectedRoute allowedRoles={['Visitor', 'Exhibitor', 'Admin']}/>}>
                             <Route path='/exhibition-list' element={<ExhibitionList />}/>
                             <Route path='/settings' element={<Settings />}/>
-                            <Route path='/users-table' element={<UsersTable />}/>
-                            <Route path='/reports-list' element={<ReportsList />}/>
+                            <Route path='/exhibitions/:exhibitionId/3d' element={<Exhibition />} />
+                            <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
+                            <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
+                            <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
+                        </Route>
+
+                        <Route element={<ProtectedRoute allowedRoles={['Exhibitor', 'Admin']}/>}>
                             <Route path='/create-exhibition' element={<ExhibitionCreateForm />}/>
                             <Route path='/exhibitions/:exhibitionId/edit' element={<ExhibitionEditForm />}/>
                             <Route path='/exhibitions/:exhibitionId/scene-editor' element={<ExhibitionSceneEditor />}/>
                             <Route path='/artefacts/:exhibitionId/create-artefact' element={<ArtefactUploadForm />} />
-                            <Route path='/exhibitions/:exhibitionId/3d' element={<Exhibition />} />
-                            <Route path='/exhibitions/:exhibitionId' element={<ExhibitionDetail />} />
-                            <Route path='/artefacts/:artefactId' element={<ArtefactDetail />} />
                             <Route path='/artefacts/:artefactId/edit' element={<ArtefactEditForm />} />
-                            <Route path='/artefacts/:artefactId/report-form' element={<ReportForm />} />
+                        </Route>
+
+                        <Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
+                            <Route path='/users-table' element={<UsersTable />}/>
+                            <Route path='/reports-list' element={<ReportsList />}/>
                         </Route>
                     </Routes>
                 </Router>
