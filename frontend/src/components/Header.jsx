@@ -15,8 +15,14 @@ function Header() {
                     {user ? (
                         <>
                             <li className='colorful-button'><NavLink to='/exhibition-list'>Exhibitions</NavLink></li>
-                            <li><NavLink to='/users-table'>Users</NavLink></li>
-                            <li><NavLink to='/reports-list'>Reports</NavLink></li>
+                            
+                            {user.role === 'Admin' && (
+                                <>
+                                    <li><NavLink to='/users-table'>Users</NavLink></li>
+                                    <li><NavLink to='/reports-list'>Reports</NavLink></li>
+                                </>
+                            )}
+                            
                             <li><NavLink to='/settings'>Settings</NavLink></li>
                             <li><button  className='nav-link-button' onClick={logout}>Log Out</button></li>
                         </>
