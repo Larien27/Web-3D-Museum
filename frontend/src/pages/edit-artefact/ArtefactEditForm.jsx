@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ArtefactEditForm() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const { artefactId } = useParams();
     const [file, setFile] = useState(null);
@@ -16,7 +18,9 @@ function ArtefactEditForm() {
     useEffect(() => {
         async function fetchArtefact() {
             try {
-                const response = await axios.get(`/api/artefacts/${artefactId}`);
+                const response = await axios.get(`/api/artefacts/${artefactId}`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setArtefactData({ title: response.data.title, description: response.data.description });
             } catch (err) {
                 showToast('error', 'Failed to load artefact.');
@@ -44,7 +48,10 @@ function ArtefactEditForm() {
 
         try {
             const response = await axios.put(`/api/artefacts/${artefactId}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${user.token}`,
+                },
             });
 
             if (response.status === 200) {
@@ -61,7 +68,9 @@ function ArtefactEditForm() {
         if (!confirmDelete) return;
 
         try {
-            const response = await axios.delete(`/api/artefacts/${artefactId}`);
+            const response = await axios.delete(`/api/artefacts/${artefactId}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             const { exhibitionId } = response.data;
             showToast('success', 'Artefact deleted successfully.');
             navigate(`/exhibitions/${exhibitionId}`);

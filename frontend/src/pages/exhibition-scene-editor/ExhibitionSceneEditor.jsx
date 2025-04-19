@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
@@ -7,6 +8,7 @@ import SceneContent from './SceneContent';
 
 
 function ExhibitionSceneEditor() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [models, setModels] = useState([]);
@@ -16,7 +18,9 @@ function ExhibitionSceneEditor() {
     useEffect(() => {
         async function fetchModels() {
             try {
-                const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`);
+                const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setModels(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load 3D models.');
@@ -46,6 +50,8 @@ function ExhibitionSceneEditor() {
                     position: modelData.position,
                     rotation: modelData.rotation,
                     scale: modelData.scale,
+                }, {
+                    headers: { Authorization: `Bearer ${user.token}` },
                 });
             }
             showToast('success', 'Scene saved successfully!');

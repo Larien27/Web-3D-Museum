@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ArtefactUploadForm() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [file, setFile] = useState(null);
@@ -36,7 +38,10 @@ function ArtefactUploadForm() {
 
         try {
             const response = await axios.post(`/api/artefacts/${exhibitionId}/upload`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${user.token}`,
+                },
             });
 
             if (response.status === 201) {

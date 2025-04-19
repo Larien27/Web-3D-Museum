@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
@@ -25,7 +25,9 @@ function ExhibitionDetail() {
 
         async function fetchArtefacts() {
             try {
-                const response = await axios.get(`/api/artefacts/exhibition/${exhibitionId}`);
+                const response = await axios.get(`/api/artefacts/exhibition/${exhibitionId}`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setArtefacts(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load exhibition artefacts.');

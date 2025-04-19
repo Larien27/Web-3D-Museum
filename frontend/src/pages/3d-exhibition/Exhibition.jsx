@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
@@ -11,6 +12,7 @@ import Walls from './Walls';
 import Model from './Model';
 
 function Exhibition() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [models, setModels] = useState([]);
@@ -19,7 +21,9 @@ function Exhibition() {
     useEffect(() => {
         async function fetchModels() {
             try {
-                const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`);
+                const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setModels(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load 3D models.');
