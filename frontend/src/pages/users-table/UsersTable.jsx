@@ -8,6 +8,8 @@ function UsersTable() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (user.role !== 'Admin') return;
+
         async function fetchUsers() {
             try {
                 const response = await axios.get('/api/users');

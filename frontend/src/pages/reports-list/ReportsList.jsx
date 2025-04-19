@@ -11,6 +11,8 @@ function ReportsList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (user.role !== 'Admin') return;
+        
         async function fetchReports() {
             try {
                 const response = await axios.get('/api/reports/pending', {
