@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import './Registration.scss';
 
 function Registration() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [formData, setFormData] = useState({
         username: '',
@@ -12,6 +14,12 @@ function Registration() {
         password: '',
     });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/exhibition-list');
+        }
+    }, [user, navigate]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
