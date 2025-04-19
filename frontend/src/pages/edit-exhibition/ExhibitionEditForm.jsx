@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 
 function ExhibitionEditForm() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [formData, setFormData] = useState({
         title: '',
@@ -15,7 +17,20 @@ function ExhibitionEditForm() {
     useEffect(() => {
         async function fetchExhibition() {
             try {
-                const response = await axios.get(`/api/exhibitions/${exhibitionId}`);
+                const response = await axios.get(`/api/exhibitions/${exhibitionId}`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+
+                const exhibition = response.data;
+                if (
+                    user.role !== 'Admin' &&
+                    !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+                ) {
+                    showToast('error', 'You do not have permission to access this page.');
+                    navigate('/exhibition-list');
+                    return;
+                };
+                
                 setFormData({ title: response.data.title, description: response.data.description });
             } catch (err) {
                 showToast('error', 'Failed to load exhibition.');
@@ -33,7 +48,9 @@ function ExhibitionEditForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`/api/exhibitions/${exhibitionId}/edit`, formData);
+            const response = await axios.put(`/api/exhibitions/${exhibitionId}/edit`, formData, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
 
             if (response.status === 200) {
                 showToast('success', 'Exhibition updated successfully!');
@@ -50,7 +67,9 @@ function ExhibitionEditForm() {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`/api/exhibitions/${exhibitionId}`);
+            await axios.delete(`/api/exhibitions/${exhibitionId}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
             showToast('success', 'Exhibition deleted successfully!');
             navigate('/exhibition-list');
         } catch (error) {

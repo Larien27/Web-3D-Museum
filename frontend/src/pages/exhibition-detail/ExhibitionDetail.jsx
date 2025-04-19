@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 
 function ExhibitionDetail() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const { exhibitionId } = useParams();
     const [exhibition, setExhibition] = useState(null);
@@ -12,7 +14,9 @@ function ExhibitionDetail() {
     useEffect(() => {
         async function fetchExhibition() {
             try {
-                const response = await axios.get(`/api/exhibitions/${exhibitionId}`);
+                const response = await axios.get(`/api/exhibitions/${exhibitionId}`, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setExhibition(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load exhibition.');

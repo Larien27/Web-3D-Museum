@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import './ExhibitionList.scss';
 import ExhibitionBox from './ExhibitionBox';
 
 function ExhibitionList() {
+    const { user } = useContext(AuthContext);
     const { showToast } = useToast();
     const [exhibitions, setExhibitions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,7 +15,9 @@ function ExhibitionList() {
     useEffect(() => {
         async function fetchExhibitions() {
             try {
-                const response = await axios.get('/api/exhibitions');
+                const response = await axios.get('/api/exhibitions', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
                 setExhibitions(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load exhibitions.');
@@ -23,7 +27,7 @@ function ExhibitionList() {
         }
 
         fetchExhibitions();
-    }, []);
+    }, [user, showToast]);
 
     if (loading) return <p>Loading exhibitions...</p>;
 
@@ -31,7 +35,7 @@ function ExhibitionList() {
         <div id='exhibition-list'>
             <h1>Exhibitions</h1>
             <span className='colorful-button'>
-            <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
+                <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
             </span>
             
                 {exhibitions.length > 0 ? (
