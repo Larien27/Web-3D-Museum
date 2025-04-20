@@ -10,14 +10,13 @@ function ExhibitionBox({ id, title, description, imageUrl, user, exhibitorId}) {
             <Link to={`/exhibitions/${id}`}>
                 <h3>{title}</h3>
             </Link>
-            <p>{description}</p>
             <span className='colorful-button'><Link to={`/exhibitions/${id}/3d`}>View 3D Exhibition</Link></span>
             {canEdit && (
-                <>
+                <div className='exhibition-box-edit'>
                     <Link to={`/artefacts/${id}/create-artefact`}>Add Artefact</Link>
                     <Link to={`/exhibitions/${id}/edit`}>Edit</Link>
                     <Link to={`/exhibitions/${id}/scene-editor`}>Exhibition Editor</Link>
-                </>
+                </div>
             )}
         </div>
     );

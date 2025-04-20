@@ -15,4 +15,29 @@
         max-height: 270px;
         object-fit: cover;
     }
+
+    a > h3:hover {
+        color: #9d9d9d;
+    }
+
+    .exhibition-box-edit {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+
+        a {
+            border: 3px solid #606060;
+            border-radius: 25px;
+            background-color: #606060;
+            padding: 5px 10px;
+            font-weight: 600;
+
+            &:hover {
+                border-color: white;
+                color: inherit;
+            }
+        }
+    }
 }
