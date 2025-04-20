@@ -59,6 +59,12 @@ function ArtefactDetail() {
                 });
             }
             setIsFavorite(!isFavorite);
+            if (isFavorite) {
+                showToast('success', 'Artefact removed from favorites.');
+            }
+            else {
+                showToast('success', 'Artefact added to favorites.');
+            }
         } catch (err) {
             showToast('error', 'Error toggling favorite.');
         }
@@ -73,16 +79,14 @@ function ArtefactDetail() {
     return(
         <div id='artefact-detail'>
             <h1>{artefact.title}</h1>
-            <p>{artefact.description}</p>
-            <Artefact artefactUrl={artefact.file_path} />
-
             <button onClick={toggleFavorite}>
                 {isFavorite ? '❤️' : '🤍'}
             </button>
-
             <button onClick={handleReportButtonClick}>🚩</button>
-
             <Link to={`/artefacts/${artefactId}/edit`}>Edit</Link>
+
+            <Artefact artefactUrl={artefact.file_path} />
+            <p>{artefact.description}</p>
         </div>
     );
 }
