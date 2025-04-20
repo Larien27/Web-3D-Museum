@@ -26,7 +26,7 @@ test('Create Exhibition page loads successfully', async () => {
     });
 });
 
-test.only('Create exhibition successfully', async ({ page }) => {
+test('Create exhibition successfully', async ({ page }) => {
     const randomString = Math.random().toString(36).substring(2, 10);
     const title = `Exhibition ${randomString}`;
     const description = `Test description for ${title}`;

@@ -24,7 +24,7 @@ test('Login page loads successfully', async () => {
 });
 
 test('Registered user logs in successfully', async ({ page }) => {
-    const expectedNavTexts = ['Settings', 'Exhibition List', 'Manage Users', 'Reports List', 'Create Exhibition', 'Logout'];
+    const expectedNavTexts = ['Exhibitions', 'Settings', 'Log Out'];
     const { email, password } = await registerUser(page);
 
     await test.step('Log the user in', async () => {

@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Header loads successfully', async () => {
-  const expectedNavTexts = ['Login', 'Registration'];
+  const expectedNavTexts = ['Log In', 'Sign Up'];
 
   await test.step('Verify the header is visible', async () => {
     await expect(headerPO.header).toBeVisible();
