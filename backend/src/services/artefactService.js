@@ -1,5 +1,6 @@
 const artefactRepository = require('../repositories/artefactRepository');
 const artefactModel = require('../models/artefactModel');
+const exhibitionRepository = require('../repositories/exhibitionRepository');
 
 const artefactService = {
     async uploadArtefact(exhibitionId, artefactData) {
@@ -39,31 +40,58 @@ const artefactService = {
         }));
     },
 
-    async deleteArtefact(artefactId) {
+    async deleteArtefact(artefactId, user) {
         const artefact = await artefactRepository.findArtefactById(artefactId);
         if (!artefact) {
             throw new Error('Artefact not found.');
         }
-        const exhibitionId = artefact.exhibition_id;
+        
+        const exhibition = await exhibitionRepository.findExhibitionById(artefact.exhibition_id);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to delete this artefact.');
+        }
+
         await artefactRepository.deleteArtefact(artefact);
-        return exhibitionId;
+        return artefact.exhibition_id;
     },
 
-    async updateArtefact(artefactId, artefactData) {
+    async updateArtefact(artefactId, artefactData, user) {
         const validation = artefactModel.validateArtefact(artefactData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
         }
+
         if (artefactData.file) {
             const fileValidation = artefactModel.validateFile(artefactData.file);
             if (fileValidation.error) {
                 throw new Error(fileValidation.error.details[0].message);
             }
         }
+
         const artefact = await artefactRepository.findArtefactById(artefactId);
         if (!artefact) {
             throw new Error('Artefact not found.');
         }
+
+        const exhibition = await exhibitionRepository.findExhibitionById(artefact.exhibition_id);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to edit this artefact.');
+        }
+
         return await artefactRepository.updateArtefact(artefactId, artefactData);
     },
 

@@ -1,7 +1,6 @@
 const exhibitionRepository = require('../repositories/exhibitionRepository');
 const exhibitionModel = require('../models/exhibitionModel');
 
-
 const exhibitionService = {
     async createExhibition(exhibitionData, creatorId) {
         const validation = exhibitionModel.validateExhibition(exhibitionData);
@@ -54,7 +53,7 @@ const exhibitionService = {
             user.role !== 'Admin' &&
             !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
         ) {
-            throw new Error('You do not have permission to update this exhibition.');
+            throw new Error('You do not have permission to delete this exhibition.');
         }
         
         return await exhibitionRepository.deleteExhibition(exhibitionId);

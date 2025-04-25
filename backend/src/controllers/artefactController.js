@@ -58,7 +58,7 @@ const artefactController = {
 
     async deleteArtefact(req, res) {
         try {
-            const exhibitionId = await artefactService.deleteArtefact(req.params.artefactId);
+            const exhibitionId = await artefactService.deleteArtefact(req.params.artefactId, req.user);
             res.status(200).json({ message: 'Artefact deleted successfully.', exhibitionId });
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -76,7 +76,7 @@ const artefactController = {
             const file = req.file;
 
             try {
-                const result = await artefactService.updateArtefact(artefactId, { title, description, file });
+                const result = await artefactService.updateArtefact(artefactId, { title, description, file }, req.user);
                 res.status(200).json({ message: 'Artefact updated successfully.', fileUrl: result.fileUrl });
             } catch (error) {
                 res.status(400).json({ message: error.message });

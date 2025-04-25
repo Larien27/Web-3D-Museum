@@ -42,7 +42,7 @@ const artefactRepository = {
     },
 
     async findArtefactById(artefactId) {
-        const result = await db.query('SELECT * FROM artefacts WHERE id = $1', [artefactId]);
+        const result = await db.query('SELECT a.*, e.creator_id AS exhibition_creator_id FROM artefacts a JOIN exhibitions e ON a.exhibition_id = e.id WHERE a.id = $1', [artefactId]);
         return result.rows[0];
     },
 
