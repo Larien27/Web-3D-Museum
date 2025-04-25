@@ -23,7 +23,7 @@ const exhibitionService = {
         return exhibition;
     },
 
-    async updateExhibition(exhibitionId, updatedData) {
+    async updateExhibition(exhibitionId, updatedData, user) {
         const validation = exhibitionModel.validateExhibition(updatedData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
@@ -33,14 +33,30 @@ const exhibitionService = {
         if (!exhibition) {
             throw new Error('Exhibition not found.');
         }
+
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to update this exhibition.');
+        }
+
         return await exhibitionRepository.updateExhibition(exhibitionId, updatedData);
     },
 
-    async deleteExhibition(exhibitionId) {
+    async deleteExhibition(exhibitionId, user) {
         const exhibition = await exhibitionRepository.findExhibitionById(exhibitionId);
         if (!exhibition) {
             throw new Error('Exhibition not found.');
         }
+
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to update this exhibition.');
+        }
+        
         return await exhibitionRepository.deleteExhibition(exhibitionId);
     }
 };

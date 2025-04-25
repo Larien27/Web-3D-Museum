@@ -40,6 +40,7 @@ function ExhibitionDetail() {
     }, [exhibitionId]);
 
     if (!exhibition) return <p>Loading</p>;
+    const canEdit = user.role === 'Admin' || user.id === exhibition.creator_id;
 
     return(
         <div id='exhibition-detail'>
@@ -59,12 +60,14 @@ function ExhibitionDetail() {
                 <p>No artefacts found for this exhibition.</p>
             )}
 
-            <Link to={`/artefacts/${exhibitionId}/create-artefact`}>Add Artefact</Link>
-            <Link to={`/exhibitions/${exhibitionId}/edit`}>Edit</Link>
-            <Link to={`/exhibitions/${exhibitionId}/scene-editor`}>Exhibition Editor</Link>
-            <Link to={`/exhibitions/${exhibitionId}/3d`}>
-                <button>View 3D Exhibition</button>
-            </Link>
+            <span className='colorful-button'><Link to={`/exhibitions/${exhibitionId}/3d`}>View 3D Exhibition</Link></span>
+            {canEdit && (
+                <>
+                    <Link to={`/artefacts/${exhibitionId}/create-artefact`}>Add Artefact</Link>
+                    <Link to={`/exhibitions/${exhibitionId}/edit`}>Edit</Link>
+                    <Link to={`/exhibitions/${exhibitionId}/scene-editor`}>Exhibition Editor</Link>
+                </>
+            )}
         </div>
     );
 }

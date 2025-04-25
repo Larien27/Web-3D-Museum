@@ -31,7 +31,7 @@ const exhibitionController = {
 
     async updateExhibition(req, res) {
         try {
-            const updatedExhibition = await exhibitionService.updateExhibition(req.params.exhibitionId, req.body);
+            const updatedExhibition = await exhibitionService.updateExhibition(req.params.exhibitionId, req.body, req.user);
             res.status(200).json({ message: 'Exhibition updated successfully.', updatedExhibition });
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -40,7 +40,7 @@ const exhibitionController = {
 
     async deleteExhibition(req, res) {
         try {
-            await exhibitionService.deleteExhibition(req.params.exhibitionId);
+            await exhibitionService.deleteExhibition(req.params.exhibitionId, req.user);
             res.status(200).json({ message: 'Exhibition deleted successfully'});
         } catch (error) {
             res.status(400).json({ message: error.message });
