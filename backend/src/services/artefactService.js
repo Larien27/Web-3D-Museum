@@ -3,7 +3,7 @@ const artefactModel = require('../models/artefactModel');
 const exhibitionRepository = require('../repositories/exhibitionRepository');
 
 const artefactService = {
-    async uploadArtefact(exhibitionId, artefactData) {
+    async uploadArtefact(exhibitionId, artefactData, user) {
         const validation = artefactModel.validateArtefact(artefactData);
         if (validation.error) {
             throw new Error(validation.error.details[0].message);
@@ -12,6 +12,20 @@ const artefactService = {
         if (fileValidation.error) {
             throw new Error(fileValidation.error.details[0].message);
         }
+
+        const exhibition = await exhibitionRepository.findExhibitionById(exhibitionId);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+        
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to upload artefacts to this exhibition.');
+        }
+        
+
         return await artefactRepository.addArtefact(exhibitionId, artefactData);
     },
 
@@ -95,8 +109,26 @@ const artefactService = {
         return await artefactRepository.updateArtefact(artefactId, artefactData);
     },
 
-    async saveTransformations(artefactId, transformations) {
+    async saveTransformations(artefactId, transformations, user) {
         const { position, rotation, scale } = transformations;
+
+        const artefact = await artefactRepository.findArtefactById(artefactId);
+        if (!artefact) {
+            throw new Error('Artefact not found.');
+        }
+
+        const exhibition = await exhibitionRepository.findExhibitionById(artefact.exhibition_id);
+        if (!exhibition) {
+            throw new Error('Exhibition not found.');
+        }
+
+        if (
+            user.role !== 'Admin' &&
+            !(user.role === 'Exhibitor' && exhibition.creator_id === user.id)
+        ) {
+            throw new Error('You do not have permission to save the transformations of artefacts.');
+        }
+
         await artefactRepository.saveTransformations(artefactId, { position, rotation, scale });
     },
 };

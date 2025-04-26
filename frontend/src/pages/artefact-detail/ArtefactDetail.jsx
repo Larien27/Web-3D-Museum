@@ -76,6 +76,8 @@ function ArtefactDetail() {
 
     if (!artefact) return <p>Loading</p>;
 
+    const canEdit = user.role === 'Admin' || user.id === artefact.exhibition_creator_id;
+
     return(
         <div id='artefact-detail'>
             <h1>{artefact.title}</h1>
@@ -83,7 +85,9 @@ function ArtefactDetail() {
                 {isFavorite ? '❤️' : '🤍'}
             </button>
             <button onClick={handleReportButtonClick}>🚩</button>
-            <Link to={`/artefacts/${artefactId}/edit`}>Edit</Link>
+            {canEdit &&
+                <Link to={`/artefacts/${artefactId}/edit`}>Edit</Link>
+            }
 
             <Artefact artefactUrl={artefact.file_path} />
             <p>{artefact.description}</p>

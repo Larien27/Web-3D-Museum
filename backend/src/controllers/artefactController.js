@@ -20,7 +20,7 @@ const artefactController = {
             }
 
             try {
-                const artefact = await artefactService.uploadArtefact(exhibitionId, { title, description, file });
+                const artefact = await artefactService.uploadArtefact(exhibitionId, { title, description, file }, req.user);
                 res.status(201).json({ message: 'Artefact uploaded successfully.', artefactId: artefact.id, fileUrl: artefact.fileUrl });
             } catch (error) {
                 res.status(500).json({ message: error.message });
@@ -89,7 +89,7 @@ const artefactController = {
         const { position, rotation, scale } = req.body;
 
         try {
-            await artefactService.saveTransformations(artefactId, { position, rotation, scale });
+            await artefactService.saveTransformations(artefactId, { position, rotation, scale }, req.user);
             res.status(200).json({ message: 'Transformations saved successfully.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
