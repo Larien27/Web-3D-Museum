@@ -34,9 +34,11 @@ function ExhibitionList() {
     return(
         <div id='exhibition-list'>
             <h1>Exhibitions</h1>
-            <span className='colorful-button'>
-                <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
-            </span>
+            {(user.role === 'Exhibitor' || user.role === 'Admin') && (
+                <span className='colorful-button'>
+                    <NavLink to='/create-exhibition'>Create Exhibition</NavLink>
+                </span>
+            )}
             
                 {exhibitions.length > 0 ? (
                     <ul>
