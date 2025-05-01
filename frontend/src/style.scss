@@ -36,11 +36,45 @@ a {
   }
 }
 
+label {
+  text-transform: uppercase;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+}
+
 canvas {
   background-color: black;
 }
 
-.colorful-button {
+input, textarea {
+  position: relative;
+  border: 3px solid white;
+  color: white;
+  border-radius: 30px;
+  padding: 15px 20px;
+  background-color: transparent;
+  outline: none;
+  font-size: 18px;
+
+  &:focus {
+    background-color: white;
+    color: black;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colorful-button, button, input[type='button'], input[type='submit'] {
   height: 36px;
   max-width: 200px;
   padding: 0 20px;
@@ -70,6 +104,13 @@ canvas {
       border: 3px solid white;
       cursor: pointer;
   }
+}
+
+button, input[type='button'], input[type='submit'] {
+  height: auto;
+  width: max-content;
+  font-size: 18px;
+  padding: 10px 25px;
 }
 
 .toast {

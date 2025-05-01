@@ -65,10 +65,10 @@ function ArtefactUploadForm() {
                 <input type='text' id='artefactTitle' name='title' value={artefactData.title} onChange={handleChange} />
 
                 <label for='artefactDescription'>Description</label>
-                <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange}></textarea>
+                <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange} rows='8'></textarea>
 
                 <label for='fileUpload'>Upload 3D model</label>
-                <input type='file' accept='.glb,.gltf,.obj,.fbx' id='fileUpload' name='modelFile' onChange={handleFileChange} />
+                <input type='file' accept='.glb,.gltf,.obj' id='fileUpload' name='modelFile' onChange={handleFileChange} />
 
                 <button type='submit'>Upload</button>
             </form>

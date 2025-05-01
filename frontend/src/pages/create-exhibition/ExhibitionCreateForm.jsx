@@ -50,7 +50,7 @@ function ExhibitionCreateForm() {
                 <input type='text' id='exhibitionTitle' name='title' value={formData.title} onChange={handleChange} />
 
                 <label for='description'>Description</label>
-                <textarea id='exhibitionDescription' name='description' value={formData.description} onChange={handleChange}></textarea>
+                <textarea id='exhibitionDescription' name='description' value={formData.description} onChange={handleChange} rows='8'></textarea>
 
                 <button type='submit'>Create</button>
             </form>

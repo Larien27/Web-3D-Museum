@@ -88,7 +88,7 @@ function ArtefactEditForm() {
                 <input type='text' id='artefactTitle' name='title' value={artefactData.title} onChange={handleChange} />
 
                 <label for='artefactDescription'>Description</label>
-                <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange}></textarea>
+                <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange} rows='8'></textarea>
 
                 <label for='fileUpload'>Replace 3D model (optional)</label>
                 <input type='file' accept='.glb,.gltf,.obj,.fbx' id='fileUpload' name='modelFile' onChange={handleFileChange} />

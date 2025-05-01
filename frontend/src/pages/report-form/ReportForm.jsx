@@ -42,7 +42,7 @@ function ReportForm() {
             <h1>Report the artefact</h1>
             <form onSubmit={handleSubmit}>
                 <label for='reason'>Reason</label>
-                <textarea id='reason' name='reason' value={formData.reason} onChange={handleChange} />
+                <textarea id='reason' name='reason' value={formData.reason} onChange={handleChange} rows='8'></textarea>
 
                 <button type="submit">Submit</button>
             </form>
