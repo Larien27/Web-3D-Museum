@@ -5,6 +5,8 @@ import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import SceneContent from './SceneContent';
+import Room from '../room/Room';
+import './ExhibitionSceneEditor.scss';
 
 
 function ExhibitionSceneEditor() {
@@ -61,9 +63,11 @@ function ExhibitionSceneEditor() {
     };
 
     return (
-        <div>
+        <div id='exhibition-scene-editor'>
+            <h1>Scene Editor</h1>
             <p>To switch between changing the position, rotation and scale of the artefact, press Arrow Down.</p>
             <Canvas camera={{ position: [3, 2, 5], fov: 75 }}>
+                <Room />
                 <SceneContent
                     models={models}
                     selectedModelId={selectedModelId}

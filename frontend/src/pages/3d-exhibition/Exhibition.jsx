@@ -6,9 +6,7 @@ import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import './Exhibition.scss';
-import Lights from './Lights';
-import Floor from './Floor';
-import Walls from './Walls';
+import Room from '../room/Room';
 import Model from './Model';
 import DetailPanel from './DetailPanel';
 
@@ -41,11 +39,7 @@ function Exhibition() {
         setSelectedModelId(prevId === modelId ? null : modelId);
     }
 
-    const roomDimensions = {
-        width: 12,
-        length: 15,
-        height: 5
-    }
+
 
     return(
         <div id='exhibition'>
@@ -57,10 +51,8 @@ function Exhibition() {
                     far: 100
                 }}
             >
-                <Lights />
-                <Floor dimensions={roomDimensions} />
-                <Walls dimensions={roomDimensions} />
-
+                
+                <Room />
                 {models.map((model) => (
                     <group
                         position={model.position ?? [0, 0, 0]}
