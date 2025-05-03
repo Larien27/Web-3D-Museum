@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import './Login.scss';
 
 function Login() {
     const { login, user } = useContext(AuthContext);

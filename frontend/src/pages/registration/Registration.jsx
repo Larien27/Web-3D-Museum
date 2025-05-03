@@ -3,7 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import './Registration.scss';
 
 function Registration() {
     const { user } = useContext(AuthContext);
