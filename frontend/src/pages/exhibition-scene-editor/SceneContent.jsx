@@ -5,7 +5,8 @@ import Model from '../3d-exhibition/Model';
 
 function SceneContent({ models, selectedModelId, setSelectedModelId, modelRefs }) {
     const transformRef = useRef();
-    const [transformMode, setTransformMode] = useState('translate'); 
+    const [transformMode, setTransformMode] = useState('translate');
+    const initializedModels = useRef(new Set());
 
     useFrame(() => {
         if (transformRef.current && selectedModelId) {
@@ -31,6 +32,18 @@ function SceneContent({ models, selectedModelId, setSelectedModelId, modelRefs }
         };
     }, []);
 
+    useEffect(() => {
+        models.forEach((model) => {
+            const ref = modelRefs.current[model.id];
+            if (ref && !initializedModels.current.has(model.id)) {
+                ref.position.set(...(model.position ?? [0, 0, 0]));
+                ref.rotation.set(...(model.rotation ?? [0, 0, 0]));
+                ref.scale.set(...(model.scale ?? [1, 1, 1]));
+                initializedModels.current.add(model.id);
+            }
+        });
+    }, [models]);
+
     return (
         <>
             <ambientLight intensity={0.5} />
@@ -43,10 +56,9 @@ function SceneContent({ models, selectedModelId, setSelectedModelId, modelRefs }
             {models.map((model) => (
                 <group
                     key={model.id}
-                    ref={(el) => (modelRefs.current[model.id] = el)}
-                    position={model.position ?? [0, 0, 0]}
-                    rotation={model.rotation ?? [0, 0, 0]}
-                    scale={model.scale ?? [1, 1, 1]}
+                    ref={(el) => {
+                        if (el) modelRefs.current[model.id] = el;
+                    }}
                     onClick={(e) => {
                         e.stopPropagation();
                         setSelectedModelId(model.id);
@@ -54,6 +66,9 @@ function SceneContent({ models, selectedModelId, setSelectedModelId, modelRefs }
                 >
                     <Model
                         url={model.modelFileUrl}
+                        position={model.position ?? [0, 0, 0]}
+                        rotation={model.rotation ?? [0, 0, 0]}
+                        scale={model.scale ?? [1, 1, 1]}
                         isSelected={selectedModelId === model.id}
                         onSelect={() => setSelectedModelId(model.id)}
                     />
