@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { registerUser, loginUser } from './utils/auth.utils';
 import ExhibitionPO from './page-objects/exhibition.po';
+import dotenv from 'dotenv'
 
+dotenv.config();
 let exhibitionPO;
 
 test.beforeEach(async ({ page }) => {
-    await test.step('Register and login user via API', async () => {
-        const { email, password } = await registerUser(page);
-        await loginUser(page, email, password);
+    await test.step('Login Exhibitor user', async () => {
+        await loginUser(page, process.env.EXHIBITOR_EMAIL, process.env.EXHIBITOR_PASSWORD);
     })
 
     await test.step('Go to Create Exhibition page', async () => {
