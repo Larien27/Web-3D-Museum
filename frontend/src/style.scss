@@ -7,11 +7,25 @@ body,
 }
 
 #root > div {
+  max-width: 100%;
   padding: 10vh 10vw;
+}
+
+#root > div#login,
+#root > div#registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #root > div#exhibition {
   padding: 0;
+}
+
+#root > div#login button,
+#root > div#registration button {
+  width: 100%;
+  max-width: 400px;
 }
 
 * {
