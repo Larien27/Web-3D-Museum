@@ -10,6 +10,7 @@ import Lights from './Lights';
 import Floor from './Floor';
 import Walls from './Walls';
 import Model from './Model';
+import DetailPanel from './DetailPanel';
 
 function Exhibition() {
     const { user } = useContext(AuthContext);
@@ -48,35 +49,37 @@ function Exhibition() {
 
     return(
         <div id='exhibition'>
-        <Canvas
-            camera={{
-                position: [3, 2, 5],
-                fov: 75,
-                near: 1,
-                far: 100
-            }}
-        >
-            <Lights />
-            <Floor dimensions={roomDimensions} />
-            <Walls dimensions={roomDimensions} />
+            <Canvas
+                camera={{
+                    position: [3, 2, 5],
+                    fov: 75,
+                    near: 1,
+                    far: 100
+                }}
+            >
+                <Lights />
+                <Floor dimensions={roomDimensions} />
+                <Walls dimensions={roomDimensions} />
 
-            {models.map((model) => (
-                <group
-                    position={model.position ?? [0, 0, 0]}
-                    rotation={model.rotation ?? [0, 0, 0]}
-                    scale={model.scale ?? [1, 1, 1]}
-                >
-                    <Model
-                        key={model.id}
-                        url={model.modelFileUrl}
-                        isSelected={selectedModelId === model.id}
-                        onSelect={() => handleSelectModel(model.id)}
-                    />
-                </group>
-            ))}
+                {models.map((model) => (
+                    <group
+                        position={model.position ?? [0, 0, 0]}
+                        rotation={model.rotation ?? [0, 0, 0]}
+                        scale={model.scale ?? [1, 1, 1]}
+                    >
+                        <Model
+                            key={model.id}
+                            url={model.modelFileUrl}
+                            isSelected={selectedModelId === model.id}
+                            onSelect={() => handleSelectModel(model.id)}
+                        />
+                    </group>
+                ))}
 
-            <OrbitControls />
-        </Canvas>
+                <OrbitControls />
+            </Canvas>
+
+            {selectedModelId && <DetailPanel artefactId={selectedModelId} />}
         </div>
     );
 }

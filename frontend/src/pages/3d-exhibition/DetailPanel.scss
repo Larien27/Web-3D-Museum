@@ -1,0 +1,15 @@
+#detail-panel {
+    width: 300px;
+    height: 60vh;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 16px;
+    z-index: 100;
+
+    h2, p {
+        color: black;
+    }
+}
