@@ -24,7 +24,7 @@ function Header() {
                             )}
                             
                             <li><NavLink to='/settings'>Settings</NavLink></li>
-                            <li><button  className='nav-link-button' onClick={logout}>Log Out</button></li>
+                            <li><button className='nav-link-button' onClick={logout}>Log Out</button></li>
                         </>
                     ) : (
                         <>

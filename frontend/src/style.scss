@@ -88,7 +88,7 @@ form {
   gap: 20px;
 }
 
-.colorful-button, button, input[type='button'], input[type='submit'] {
+.colorful-button, #root > div button, #root > div input[type='button'], #root > div input[type='submit'] {
   height: 36px;
   max-width: 200px;
   padding: 0 20px;
