@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { registerUser, loginUser } from './utils/auth.utils';
+import { loginUser } from './utils/auth.utils';
 import ExhibitionPO from './page-objects/exhibition.po';
 import dotenv from 'dotenv'
 

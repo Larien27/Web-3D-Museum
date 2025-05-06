@@ -39,8 +39,6 @@ function Exhibition() {
         setSelectedModelId(prevId === modelId ? null : modelId);
     }
 
-
-
     return(
         <div id='exhibition'>
             <Canvas
