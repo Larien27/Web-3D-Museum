@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -13,12 +14,14 @@ import DetailPanel from './DetailPanel';
 function Exhibition() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const { exhibitionId } = useParams();
     const [models, setModels] = useState([]);
     const [selectedModelId, setSelectedModelId] = useState(null);
 
     useEffect(() => {
         async function fetchModels() {
+            showLoading();
             try {
                 const response = await axios.get(`/api/artefacts/${exhibitionId}/artefacts/3d`, {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -26,6 +29,10 @@ function Exhibition() {
                 setModels(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load 3D models.');
+            } finally {
+                setTimeout(() => {
+                    hideLoading();
+                }, 1000);
             }
         }
 
