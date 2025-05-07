@@ -50,7 +50,7 @@ function Login() {
                 <label for='password'>Password</label>
                 <input type='password' id='password' name='password' value={formData.password} onChange={handleChange} />
 
-                <button type="submit">Login</button>
+                <button type="submit">Log In</button>
             </form>
         </div>
     );

@@ -52,7 +52,7 @@ function Registration() {
                 <label for='password'>Password</label>
                 <input type='password' id='password' name='password' value={formData.password} onChange={handleChange} />
 
-                <button type="submit">Register</button>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     );
