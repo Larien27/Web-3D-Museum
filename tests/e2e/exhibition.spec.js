@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { loginUser } from './utils/auth.utils';
 import ExhibitionPO from './page-objects/exhibition.po';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 let exhibitionPO;
@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
         exhibitionPO = new ExhibitionPO(page);
         await page.goto('/create-exhibition');
     })
-})
+});
 
 test('Create Exhibition page loads successfully', async () => {
     await test.step('Verify all the inputs are visible', async () => {
