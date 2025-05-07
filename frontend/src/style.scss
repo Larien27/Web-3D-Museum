@@ -70,7 +70,7 @@ input, textarea {
   position: relative;
   border: 3px solid white;
   color: white;
-  border-radius: 15px;
+  border-radius: 25px;
   padding: 10px 15px;
   background-color: transparent;
   outline: none;
@@ -83,9 +83,34 @@ input, textarea {
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 30px 30px;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 30px;
+
+  label {
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 8px 16px;
+    box-sizing: border-box;
+  }
+
+  button[type='submit'] {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    padding: 10px;
+    text-transform: uppercase;
+    height: 40px !important;
+    margin-top: 20px;
+  }
 }
 
 .colorful-button, #root > div button, #root > div input[type='button'], #root > div input[type='submit'] {
