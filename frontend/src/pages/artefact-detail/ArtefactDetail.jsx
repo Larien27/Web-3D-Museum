@@ -3,12 +3,14 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import Artefact from '../3d-artefact/Artefact';
 import './ArtefactDetail.scss';
 
 function ArtefactDetail() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const { artefactId } = useParams();
     const [artefact, setArtefact] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -16,6 +18,7 @@ function ArtefactDetail() {
 
     useEffect(() => {
         async function fetchArtefact() {
+            showLoading();
             try {
                 const response = await axios.get(`/api/artefacts/${artefactId}`, {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -23,6 +26,10 @@ function ArtefactDetail() {
                 setArtefact(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load artefact.');
+            } finally {
+                setTimeout(() => {
+                    hideLoading();
+                }, 500);
             }
         }
 
@@ -74,7 +81,7 @@ function ArtefactDetail() {
         navigate(`/artefacts/${artefactId}/report-form`);
     };
 
-    if (!artefact) return <p>Loading</p>;
+    if (!artefact) return null;
 
     const canEdit = user.role === 'Admin' || user.id === artefact.exhibition_creator_id;
 

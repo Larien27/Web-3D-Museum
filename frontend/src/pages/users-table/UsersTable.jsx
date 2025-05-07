@@ -1,18 +1,20 @@
 import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
 
 function UsersTable() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (user.role !== 'Admin') return;
 
         async function fetchUsers() {
+            showLoading();
             try {
                 const response = await axios.get('/api/users', {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -21,7 +23,7 @@ function UsersTable() {
             } catch (err) {
                 showToast('error', 'Failed to load users.');
             } finally {
-                setLoading(false);
+                hideLoading();
             }
         }
 
@@ -74,8 +76,6 @@ function UsersTable() {
             showToast('error', 'Failed to delete user.');
         }
     };
-
-    if (loading) return <p>Loading users...</p>;
 
     return(
         <div id='users-table'>

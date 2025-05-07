@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
 import './ExhibitionList.scss';
 import ExhibitionBox from './ExhibitionBox';
@@ -9,11 +10,12 @@ import ExhibitionBox from './ExhibitionBox';
 function ExhibitionList() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const [exhibitions, setExhibitions] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchExhibitions() {
+            showLoading();
             try {
                 const response = await axios.get('/api/exhibitions', {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -22,14 +24,12 @@ function ExhibitionList() {
             } catch (err) {
                 showToast('error', 'Failed to load exhibitions.');
             } finally {
-                setLoading(false);
+                hideLoading();
             }
         }
 
         fetchExhibitions();
     }, [user, showToast]);
-
-    if (loading) return <p>Loading exhibitions...</p>;
 
     return(
         <div id='exhibition-list'>

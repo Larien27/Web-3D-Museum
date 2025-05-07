@@ -2,18 +2,20 @@ import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
 
 function ReportsList() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const [reports, setReports] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (user.role !== 'Admin') return;
         
         async function fetchReports() {
+            showLoading();
             try {
                 const response = await axios.get('/api/reports/pending', {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -22,7 +24,7 @@ function ReportsList() {
             } catch (err) {
                 showToast('error', 'Failed to load reports.');
             } finally {
-                setLoading(false);
+                hideLoading();
             }
         }
 
@@ -62,8 +64,6 @@ function ReportsList() {
             showToast('error', 'Failed to delete report.');
         }
     };
-
-    if (loading) return <p>Loading reports...</p>;
 
     return(
         <div id='reports-list'>

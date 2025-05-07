@@ -2,17 +2,20 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
 
 function ExhibitionDetail() {
     const { user } = useContext(AuthContext);
     const { showToast } = useToast();
+    const { showLoading, hideLoading } = useLoading();
     const { exhibitionId } = useParams();
     const [exhibition, setExhibition] = useState(null);
     const [artefacts, setArtefacts] = useState([]);
 
     useEffect(() => {
         async function fetchExhibition() {
+            showLoading();
             try {
                 const response = await axios.get(`/api/exhibitions/${exhibitionId}`, {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -20,10 +23,13 @@ function ExhibitionDetail() {
                 setExhibition(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load exhibition.');
+            } finally {
+                hideLoading();
             }
         }
 
         async function fetchArtefacts() {
+            showLoading();
             try {
                 const response = await axios.get(`/api/artefacts/exhibition/${exhibitionId}`, {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -31,6 +37,8 @@ function ExhibitionDetail() {
                 setArtefacts(response.data);
             } catch (err) {
                 showToast('error', 'Failed to load exhibition artefacts.');
+            } finally {
+                hideLoading();
             }
         }
 
@@ -39,7 +47,7 @@ function ExhibitionDetail() {
 
     }, [exhibitionId]);
 
-    if (!exhibition) return <p>Loading</p>;
+    if (!exhibition) return null;
     const canEdit = user.role === 'Admin' || user.id === exhibition.creator_id;
 
     return(
