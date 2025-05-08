@@ -16,7 +16,7 @@ const artefactModel = {
     validateFile(file) {
         const schema = Joi.object({
             originalname: Joi.string().required(),
-            mimetype: Joi.string().valid('application/octet-stream', 'model/gltf+json', 'application/zip').required(),
+            mimetype: Joi.string().valid('application/json', 'model/gltf-binary', 'application/octet-stream').required(),
             size: Joi.number().max(5 * 1024 * 1024).required(),
         });
 
