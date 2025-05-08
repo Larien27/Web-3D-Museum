@@ -18,3 +18,4 @@ By default, the backend runs on http://localhost:3000
 
 ## Credits
 - **Favicon:** ["Museum icon"](https://www.iconfinder.com/icons/8723147/museum_icon) by Chunk Icons from Iconfinder, used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- **Draco 3D Compression:** This project uses the Draco 3D compression library by Google (Apache 2.0 license).

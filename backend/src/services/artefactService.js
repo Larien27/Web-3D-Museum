@@ -1,6 +1,7 @@
 const artefactRepository = require('../repositories/artefactRepository');
 const artefactModel = require('../models/artefactModel');
 const exhibitionRepository = require('../repositories/exhibitionRepository');
+const { optimize3DModel } = require('../utils/modelOptimizer');
 
 const artefactService = {
     async uploadArtefact(exhibitionId, artefactData, user) {
@@ -25,6 +26,9 @@ const artefactService = {
             throw new Error('You do not have permission to upload artefacts to this exhibition.');
         }
         
+        const optimized = await optimize3DModel(artefactData.file.buffer, artefactData.file.originalname);
+        artefactData.file.buffer = optimized.buffer;
+        artefactData.file.originalname = optimized.optimizedName;
 
         return await artefactRepository.addArtefact(exhibitionId, artefactData);
     },
@@ -105,6 +109,10 @@ const artefactService = {
         ) {
             throw new Error('You do not have permission to edit this artefact.');
         }
+
+        const optimized = await optimize3DModel(artefactData.file.buffer, artefactData.file.originalname);
+        artefactData.file.buffer = optimized.buffer;
+        artefactData.file.originalname = optimized.optimizedName;
 
         return await artefactRepository.updateArtefact(artefactId, artefactData);
     },

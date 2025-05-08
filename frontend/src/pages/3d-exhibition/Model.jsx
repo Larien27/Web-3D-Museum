@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { Outlines } from '@react-three/drei';
 import { useToast } from '../../context/ToastContext';
 
@@ -17,13 +17,16 @@ function Model({ url, isSelected, onSelect }) {
                 let loadedModel;
 
                 if (fileExtension === 'glb' || fileExtension === 'gltf') {
-                    loadedModel = await new GLTFLoader().loadAsync(url);
+                    const loader = new GLTFLoader();
+
+                    const dracoLoader = new DRACOLoader();
+                    dracoLoader.setDecoderPath('/draco/');
+                    loader.setDRACOLoader(dracoLoader);
+                    
+                    loadedModel = await loader.loadAsync(url);
                     setModel(loadedModel.scene);
                 } else if (fileExtension === 'obj') {
                     loadedModel = await new OBJLoader().loadAsync(url);
-                    setModel(loadedModel);
-                } else if (fileExtension === 'fbx') {
-                    loadedModel = await new FBXLoader().loadAsync(url);
                     setModel(loadedModel);
                 } else {
                     showToast('error', `Unsupported file type: ${fileExtension}`);
