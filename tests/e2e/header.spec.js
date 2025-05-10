@@ -60,7 +60,7 @@ test('Exhibitor user has the right header links', async ({ page }) => {
   });
 });
 
-test.only('Admin user has the right header links', async ({ page }) => {
+test('Admin user has the right header links', async ({ page }) => {
   const expectedNavTexts = ['Exhibitions', 'Users', 'Reports', 'Settings', 'Log Out'];
 
   await test.step('Create and log the user in', async () => {

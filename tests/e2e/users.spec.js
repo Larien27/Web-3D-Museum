@@ -31,15 +31,13 @@ test('Assign new role to a user', async ({ page }) => {
     let email;
     let password;
 
-    await test.step('Register and login user via API', async () => {
+    await test.step('Register new user via API', async () => {
         const result = await registerUser(page);
         email = result.email;
         password = result.password;
-        await loginUser(page, email, password);
     });
 
-    await test.step('Logout and login admin', async () => {
-        await headerPO.logoutButton.click();
+    await test.step('Log in admin user', async () => {
         await loginUser(page, process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD);
         await page.goto('/users-table');
     });
