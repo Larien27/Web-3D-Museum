@@ -110,9 +110,11 @@ const artefactService = {
             throw new Error('You do not have permission to edit this artefact.');
         }
 
-        const optimized = await optimize3DModel(artefactData.file.buffer, artefactData.file.originalname);
-        artefactData.file.buffer = optimized.buffer;
-        artefactData.file.originalname = optimized.optimizedName;
+        if (artefactData.file) {
+            const optimized = await optimize3DModel(artefactData.file.buffer, artefactData.file.originalname);
+            artefactData.file.buffer = optimized.buffer;
+            artefactData.file.originalname = optimized.optimizedName;
+        }
 
         return await artefactRepository.updateArtefact(artefactId, artefactData);
     },
