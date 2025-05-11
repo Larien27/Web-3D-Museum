@@ -26,7 +26,6 @@ function DetailPanel({ artefactId }) {
         fetchArtefact();
     }, [artefactId, user]);
 
-    console.log(artefact);
     if (!artefact) return null;
 
     return(
