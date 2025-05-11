@@ -1,10 +1,17 @@
 #exhibition-list ul {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 5px;
+    padding: 10px;
 
     li {
         list-style-type: none;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    #exhibition-list ul {
+        grid-template-columns: 1fr;
     }
 }
