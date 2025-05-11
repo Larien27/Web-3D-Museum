@@ -24,6 +24,7 @@ test('Users page loads successfully', async ({ page }) => {
     await test.step('Verify the table is visible', async () => {
         await page.goto('/users-table');
         await expect(usersPO.usersTable).toBeVisible();
+        await expect(usersPO.userRows.first()).toBeVisible();
     });
 });
 
