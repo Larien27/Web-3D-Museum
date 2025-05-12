@@ -12,7 +12,8 @@ body,
 }
 
 #root > div#login,
-#root > div#registration {
+#root > div#registration,
+#root > div#settings {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -204,4 +205,20 @@ table {
 @keyframes pulse {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr; /* Stack everything */
+    gap: 15px;
+  }
+
+  form label {
+    text-align: left;
+    padding-right: 0;
+  }
+
+  form button[type='submit'] {
+    width: 100%;
+  }
 }
