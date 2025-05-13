@@ -33,19 +33,6 @@
 
         a {
             flex: 1 1 auto;
-            min-width: 120px;
-            text-align: center;
-            border: 3px solid #606060;
-            border-radius: 25px;
-            background-color: #606060;
-            padding: 8px 12px;
-            font-weight: 600;
-            white-space: nowrap;
-
-            &:hover {
-                border-color: white;
-                color: inherit;
-            }
         }
     }
 }

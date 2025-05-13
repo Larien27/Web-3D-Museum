@@ -13,7 +13,14 @@ body,
 
 #root > div#login,
 #root > div#registration,
-#root > div#settings {
+#root > div#settings,
+#root > div#reportForm,
+#root > div#exhibition-create-form,
+#root > div#exhibition-edit-form,
+#root > div#artefact-upload-form,
+#root > div#artefact-edit-form,
+#root > div#exhibition-detail,
+#root > div#artefact-detail {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,7 +116,10 @@ form {
   }
 }
 
-.colorful-button, #root > div button, #root > div input[type='button'], #root > div input[type='submit'] {
+.colorful-button,
+#root > div button:not(.secondary-button),
+#root > div input[type='button']:not(.secondary-button),
+#root > div input[type='submit']:not(.secondary-button) {
   height: 36px;
   max-width: 200px;
   padding: 0 20px;
@@ -137,6 +147,24 @@ form {
 
   &:hover {
       border: 3px solid white;
+      cursor: pointer;
+  }
+}
+
+.secondary-button {
+  min-width: 120px;
+  text-align: center;
+  border: 3px solid #606060;
+  border-radius: 25px;
+  background-color: #606060;
+  padding: 6px 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: white;
+
+  &:hover {
+      border-color: white;
+      color: white;
       cursor: pointer;
   }
 }

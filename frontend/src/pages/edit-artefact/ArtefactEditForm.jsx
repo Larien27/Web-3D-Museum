@@ -80,7 +80,7 @@ function ArtefactEditForm() {
     }
 
     return (
-        <div>
+        <div id='artefact-edit-form'>
             <h1>Edit artefact</h1>
             
             <form onSubmit={handleUpdate}>
@@ -90,11 +90,11 @@ function ArtefactEditForm() {
                 <label for='artefactDescription'>Description</label>
                 <textarea id='artefactDescription' name='description' value={artefactData.description} onChange={handleChange} rows='8'></textarea>
 
-                <label for='fileUpload'>Replace 3D model (optional)</label>
+                <label for='fileUpload'>Replace 3D model<br></br>(optional)</label>
                 <input type='file' accept='.glb,.gltf' id='fileUpload' name='modelFile' onChange={handleFileChange} />
 
                 <button type='submit'>Update</button>
-                <button type='button' onClick={handleDelete}>Delete</button>
+                <button type='button' className='secondary-button' onClick={handleDelete}>Delete</button>
             </form>
         </div>
     )

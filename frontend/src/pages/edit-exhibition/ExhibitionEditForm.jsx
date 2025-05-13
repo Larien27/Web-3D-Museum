@@ -88,7 +88,7 @@ function ExhibitionEditForm() {
                 <textarea id='exhibitionDescription' name='description' value={formData.description} onChange={handleChange} rows='8'></textarea>
 
                 <button type='submit'>Update</button>
-                <button type='button' onClick={handleDelete}>Delete</button>
+                <button type='button' className='secondary-button' onClick={handleDelete}>Delete</button>
             </form>
         </div>
     );

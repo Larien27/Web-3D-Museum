@@ -88,7 +88,7 @@ function ReportsList() {
                                 <button onClick={() => handleResolved(report.id)}>MARK AS RESOLVED</button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(report.id)}>DELETE</button>
+                                <button className='secondary-button' onClick={() => handleDelete(report.id)}>DELETE</button>
                             </td>
                         </tr>
                     ))}

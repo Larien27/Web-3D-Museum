@@ -57,7 +57,7 @@ function ArtefactUploadForm() {
     };
 
     return (
-        <div>
+        <div id='artefact-upload-form'>
             <h1>New artefact</h1>
             
             <form onSubmit={handleUpload}>
