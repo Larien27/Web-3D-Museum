@@ -6,10 +6,36 @@
     right: 20px;
     background-color: white;
     border: 1px solid #ccc;
-    padding: 16px;
+    padding: 16px 22px;
     z-index: 100;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
 
     h2, p {
         color: black;
     }
+
+    word-wrap: break-word;
+
+    .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 6px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: black;
+        cursor: pointer;
+        }
+}
+
+@media (max-width: 600px) {
+  #detail-panel {
+    width: 90%;
+    height: 60vh;
+    bottom: 10px;
+    right: 5%;
+    padding: 12px;
+  }
 }

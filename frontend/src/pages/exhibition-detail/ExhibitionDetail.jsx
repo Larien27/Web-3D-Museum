@@ -4,6 +4,7 @@ import AuthContext from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { useLoading } from '../../context/LoadingContext';
 import axios from 'axios';
+import './ExhibitionDetail.scss';
 
 function ExhibitionDetail() {
     const { user } = useContext(AuthContext);
@@ -53,29 +54,37 @@ function ExhibitionDetail() {
     return(
         <div id='exhibition-detail'>
             <h1>{exhibition.title}</h1>
-            <img>{exhibition.imageUrl}</img>
-            <p>{exhibition.description}</p>
+            
+            {exhibition.imageUrl && (
+            <div className='exhibition-image-wrapper'>
+                <img src={exhibition.imageUrl} alt={exhibition.title} />
+            </div>
+            )}
+
+            <p className='description'>{exhibition.description}</p>
 
             {artefacts.length > 0 ? (
-                <ul>
-                    {artefacts.map((artefact) => (
-                        <li key={artefact.id}>
-                            <Link to={`/artefacts/${artefact.id}`}>{artefact.title}</Link>
-                        </li>
-                    ))}
-                </ul>
+                <div className='artefacts-section'>
+                    <h2>Artefacts</h2>
+                    <div className='artefacts-grid'>
+                        {artefacts.map((artefact) => (
+                            <Link key={artefact.id} to={`/artefacts/${artefact.id}`} className='artefact-tile'>{artefact.title}</Link>
+                        ))}
+                    </div>
+                </div>
             ) : (
                 <p>No artefacts found for this exhibition.</p>
             )}
-
-            <span className='colorful-button'><Link to={`/exhibitions/${exhibitionId}/3d`}>View 3D Exhibition</Link></span>
-            {canEdit && (
-                <>
-                    <Link to={`/artefacts/${exhibitionId}/create-artefact`}>Add Artefact</Link>
-                    <Link to={`/exhibitions/${exhibitionId}/edit`}>Edit</Link>
-                    <Link to={`/exhibitions/${exhibitionId}/scene-editor`}>Exhibition Editor</Link>
-                </>
-            )}
+            <div className='actions'>
+                <Link to={`/exhibitions/${exhibitionId}/3d`} className='colorful-button'>View 3D Exhibition</Link>
+                {canEdit && (
+                    <>
+                        <Link to={`/artefacts/${exhibitionId}/create-artefact`} className='secondary-button'>Add Artefact</Link>
+                        <Link to={`/exhibitions/${exhibitionId}/edit`} className='secondary-button'>Edit</Link>
+                        <Link to={`/exhibitions/${exhibitionId}/scene-editor`} className='secondary-button'>Exhibition Editor</Link>
+                    </>
+                )}
+            </div>
         </div>
     );
 }

@@ -30,6 +30,7 @@ function DetailPanel({ artefactId }) {
 
     return(
         <div id='detail-panel'>
+            <button className='close-btn' onClick={() => setArtefact(null)}>×</button>
             <h2>{artefact.title}</h2>
             <p>{artefact.description}</p>
         </div>

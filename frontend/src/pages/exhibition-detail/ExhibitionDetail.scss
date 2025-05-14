@@ -1,0 +1,92 @@
+#exhibition-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+
+    .exhibition-image-wrapper {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        max-width: 700px;
+    }
+
+    .artefacts-section {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .artefact-grid {
+        display: flex !important;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 16px;
+    }
+
+    .artefact-tile {
+        display: flex;
+        align-items: center;
+        padding: 14px 24px;
+        border: 2px solid white;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .secondary-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .colorful-button {
+        &:hover {
+            color: white;;
+        }
+    }
+}
+
+
+@media (max-width: 768px) {
+  #exhibition-detail {
+    padding: 16px;
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+}

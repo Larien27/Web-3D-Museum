@@ -70,29 +70,33 @@ function ReportsList() {
             <h1>Reported Artefacts</h1>
 
             {reports.length > 0 ? (
-                <table>
-                    <tr>
-                        <th>Artefact</th>
-                        <th>User</th>
-                        <th>Reason</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    {reports.map((report) => (
-                        <tr key={report.id}>
-                            <td>
-                                <Link to={`/artefacts/${report.artefact_id}/`}>{report.title}</Link></td>
-                            <td>{report.username}</td>
-                            <td>{report.reason}</td>
-                            <td>
-                                <button onClick={() => handleResolved(report.id)}>MARK AS RESOLVED</button>
-                            </td>
-                            <td>
-                                <button className='secondary-button' onClick={() => handleDelete(report.id)}>DELETE</button>
-                            </td>
-                        </tr>
-                    ))}
-                </table>
+                <div className='table-container'>
+                    <table className='reports-table'>
+                        <thead>
+                            <tr>
+                                <th>Artefact</th>
+                                <th>User</th>
+                                <th>Reason</th>
+                                <th colSpan='2'>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reports.map((report) => (
+                                <tr key={report.id}>
+                                    <td><Link to={`/artefacts/${report.artefact_id}/`}>{report.title}</Link></td>
+                                    <td>{report.username}</td>
+                                    <td>{report.reason}</td>
+                                    <td>
+                                        <button className='colorful-button' onClick={() => handleResolved(report.id)}>MARK AS RESOLVED</button>
+                                    </td>
+                                    <td>
+                                        <button className='secondary-button' onClick={() => handleDelete(report.id)}>DELETE</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>No reports available.</p>
             )}

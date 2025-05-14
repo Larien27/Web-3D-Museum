@@ -82,34 +82,39 @@ function UsersTable() {
             <h1>Manage Users</h1>
             
             {users.length > 0 ? (
-                <table>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    {users.map((user) => (
-                        <tr key={user.id}>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>
-                                <select value={user.role} onChange={(e) => handleRoleChange(user.id, e.target.value)}>
-                                    <option value='Visitor'>Visitor</option>
-                                    <option value='Exhibitor'>Exhibitor</option>
-                                    <option value='Admin'>Admin</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button onClick={() => handleResetPassword(user.id)}>RESET PASSWORD</button>
-                            </td>
-                            <td>
-                                <button onClick={() => handleDelete(user.id)}>DELETE</button>
-                            </td>
-                        </tr>
-                    ))}
-                </table>
+                <div className='table-container'>
+                    <table className='users-table'>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th colSpan='2'>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.id}>
+                                    <td>{user.username}</td>
+                                    <td>{user.email}</td>
+                                    <td>
+                                        <select value={user.role} onChange={(e) => handleRoleChange(user.id, e.target.value)}>
+                                            <option value='Visitor'>Visitor</option>
+                                            <option value='Exhibitor'>Exhibitor</option>
+                                            <option value='Admin'>Admin</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleResetPassword(user.id)}>RESET PASSWORD</button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDelete(user.id)}>DELETE</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>No users available.</p>
             )}

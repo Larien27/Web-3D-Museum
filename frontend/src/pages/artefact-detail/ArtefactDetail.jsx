@@ -88,16 +88,23 @@ function ArtefactDetail() {
     return(
         <div id='artefact-detail'>
             <h1>{artefact.title}</h1>
-            <button onClick={toggleFavorite}>
-                {isFavorite ? '❤️' : '🤍'}
-            </button>
-            <button onClick={handleReportButtonClick}>🚩</button>
+
+            <div>
+                <button className='favorite-button' onClick={toggleFavorite}>
+                    {isFavorite ? '❤️' : '🤍'}
+                </button>
+                <button className='report-button' onClick={handleReportButtonClick}>🚩</button>
+            </div>
+
             {canEdit &&
-                <Link to={`/artefacts/${artefactId}/edit`}>Edit</Link>
+                <Link to={`/artefacts/${artefactId}/edit`} className='secondary-button'>Edit</Link>
             }
 
-            <Artefact artefactUrl={artefact.file_path} />
-            <p>{artefact.description}</p>
+            <div className='artefact-viewer'>
+                <Artefact artefactUrl={artefact.file_path} />
+            </div>
+
+            <p className='description'>{artefact.description}</p>
         </div>
     );
 }
