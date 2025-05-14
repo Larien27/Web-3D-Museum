@@ -357,3 +357,31 @@ table {
     }
   }
 }
+
+.file-upload-wrapper {
+  position: relative;
+  width: 100%;
+
+  input[type='file'] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border: 3px solid white;
+    border-radius: 25px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+}
